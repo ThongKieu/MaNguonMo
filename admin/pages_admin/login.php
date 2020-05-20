@@ -1,0 +1,12 @@
+<?php
+    include_once("../config_admin.php");
+    $level=L1;
+	$_isIndex=false;
+    $_isChart=false;
+    $_isLogin=true;
+    $_isAdd=false;
+    $_isWid=false;
+    $_isMem=false;
+    $_isList=false;
+    include_once($level."layout_admin.php");
+?>
