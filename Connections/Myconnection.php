@@ -5,7 +5,6 @@
 $hostname_Myconnection = "localhost";
 $database_Myconnection = "quanlynhansu";
 $username_Myconnection = "root";
-$password_Myconnection = "root";
-$Myconnection = mysql_pconnect($hostname_Myconnection, $username_Myconnection, $password_Myconnection) or trigger_error(mysql_error(),E_USER_ERROR);
-mysql_query("SET NAMES 'utf8'");
-?>
+$password_Myconnection = "";
+$Myconnection = mysqli_connect($hostname_Myconnection, $username_Myconnection, $password_Myconnection);
+mysqli_query($Myconnection,"SET NAMES 'utf8'");

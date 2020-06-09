@@ -8,7 +8,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
     $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
   }
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+  $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($theValue) : mysqli_escape_string($theValue);
 
   switch ($theType) {
     case "text":
@@ -45,8 +45,8 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
                        GetSQLValueString($_POST['muc_luong'], "text"),
                        GetSQLValueString($_POST['ghi_chu'], "text"));
 
-  mysql_select_db($database_Myconnection, $Myconnection);
-  $Result1 = mysql_query($insertSQL, $Myconnection) or die(mysql_error());
+  mysqli_select_db($database_Myconnection, $Myconnection);
+  $Result1 = mysqli_query($insertSQL, $Myconnection) or die(mysqli_error());
 
   $insertGoTo = "them_moi_qua_trinh_luong.php";
   if (isset($_SERVER['QUERY_STRING'])) {
@@ -56,11 +56,11 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
   sprintf("Location: %s", $insertGoTo);
 }
 
-mysql_select_db($database_Myconnection, $Myconnection);
+mysqli_select_db($database_Myconnection, $Myconnection);
 $query_RCQTluong_TM = "SELECT * FROM tlb_quatrinhluong where ma_nhan_vien = '$ma_nv'";
-$RCQTluong_TM = mysql_query($query_RCQTluong_TM, $Myconnection) or die(mysql_error());
-$row_RCQTluong_TM = mysql_fetch_assoc($RCQTluong_TM);
-$totalRows_RCQTluong_TM = mysql_num_rows($RCQTluong_TM);
+$RCQTluong_TM = mysqli_query($query_RCQTluong_TM, $Myconnection) or die(mysqli_error());
+$row_RCQTluong_TM = mysqli_fetch_assoc($RCQTluong_TM);
+$totalRows_RCQTluong_TM = mysqli_num_rows($RCQTluong_TM);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -133,7 +133,7 @@ $totalRows_RCQTluong_TM = mysql_num_rows($RCQTluong_TM);
           <td width="35" class="row1"><a href="index.php?require=cap_nhat_qua_trinh_luong.php&catID=<?php echo $ma_nv; ?>&tomID=<?php echo $row_RCQTluong_TM['id']; ?>&title=Cập nhật quá trình lương">Sửa</a></td>
           <td width="35" class="row1">Xoá</td>
         </tr>
-        <?php } while ($row_RCQTluong_TM = mysql_fetch_assoc($RCQTluong_TM)); ?>
+        <?php } while ($row_RCQTluong_TM = mysqli_fetch_assoc($RCQTluong_TM)); ?>
     </table>
     <?php
 		}
@@ -144,5 +144,5 @@ $totalRows_RCQTluong_TM = mysql_num_rows($RCQTluong_TM);
 </body>
 </html>
 <?php
-mysql_free_result($RCQTluong_TM);
+mysqli_free_result($RCQTluong_TM);
 ?>

@@ -6,7 +6,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
     $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
   }
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+  $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($theValue) : mysqli_escape_string($theValue);
 
   switch ($theType) {
     case "text":
@@ -58,8 +58,8 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
                        GetSQLValueString($_POST['ton_giao_id'], "text"),
                        GetSQLValueString($_POST['tinh_thanh_id'], "text"));
 
-  mysql_select_db($database_Myconnection, $Myconnection);
-  $Result1 = mysql_query($insertSQL, $Myconnection) or die(mysql_error());
+  mysqli_select_db($database_Myconnection, $Myconnection);
+  $Result1 = mysqli_query($insertSQL, $Myconnection) or die(mysqli_error());
 }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

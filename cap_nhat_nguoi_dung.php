@@ -14,8 +14,8 @@ if ($action=="del")
 	$ma_column = $column . "_id";
 	$deleteSQL = "DELETE FROM $table WHERE $ma_column='$ma_nv'";                     
 	
-	  mysql_select_db($database_Myconnection, $Myconnection);
-	  $Result1 = mysql_query($deleteSQL, $Myconnection) or die(mysql_error());
+	  mysqli_select_db($database_Myconnection, $Myconnection);
+	  $Result1 = mysqli_query($deleteSQL, $Myconnection) or die(mysqli_error());
 	
 	  $deleteGoTo = "them_danh_muc.php";
 	  if (isset($_SERVER['QUERY_STRING'])) {
@@ -33,14 +33,14 @@ if (isset($_SERVER['QUERY_STRING'])) {
 if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
   $updateSQL = sprintf("UPDATE $table SET $ten_column=%s WHERE $ma_column=%s", $_POST['2'], $_POST['1']);
 
-  mysql_select_db($database_Myconnection, $Myconnection);
-  $Result1 = mysql_query($updateSQL, $Myconnection) or die(mysql_error());
+  mysqli_select_db($database_Myconnection, $Myconnection);
+  $Result1 = mysqli_query($updateSQL, $Myconnection) or die(mysqli_error());
 }
-mysql_select_db($database_Myconnection, $Myconnection);
+mysqli_select_db($database_Myconnection, $Myconnection);
 $query_RCDanhmuc_DS = "SELECT * FROM $table";
-$RCDanhmuc_DS = mysql_query($query_RCDanhmuc_DS, $Myconnection) or die(mysql_error());
-$row_RCDanhmuc_DS = mysql_fetch_assoc($RCDanhmuc_DS);
-$totalRows_RCDanhmuc_DS = mysql_num_rows($RCDanhmuc_DS);
+$RCDanhmuc_DS = mysqli_query($query_RCDanhmuc_DS, $Myconnection) or die(mysqli_error());
+$row_RCDanhmuc_DS = mysqli_fetch_assoc($RCDanhmuc_DS);
+$totalRows_RCDanhmuc_DS = mysqli_num_rows($RCDanhmuc_DS);
 ?>
 <table width="800" border="0" cellspacing="1" cellpadding="0" align="center">
   <tr>
@@ -65,15 +65,15 @@ $totalRows_RCDanhmuc_DS = mysql_num_rows($RCDanhmuc_DS);
           <td class="row1"><a href="index.php?require=cap_nhat_danh_muc.php&table=<?php echo $table; ?>&catID=<?php echo $row_RCDanhmuc_DS[$ma_column]; ?>&title=<?php echo $title; ?>&column=<?php echo $column; ?>&action=del">Xoá</a></td>
         </tr>
         <?php $stt = $stt + 1; ?>
-        <?php } while ($row_RCDanhmuc_DS = mysql_fetch_assoc($RCDanhmuc_DS)); ?>
+        <?php } while ($row_RCDanhmuc_DS = mysqli_fetch_assoc($RCDanhmuc_DS)); ?>
     </table></td>
     <td class="row2" width="260" align="center" valign="top">
     <?php 
-	mysql_select_db($database_Myconnection, $Myconnection);
+	mysqli_select_db($database_Myconnection, $Myconnection);
 		$query_RCDanhmuc_CN = "SELECT * FROM $table where $ma_column = '$ma_nv'";
-		$RCDanhmuc_CN = mysql_query($query_RCDanhmuc_CN, $Myconnection) or die(mysql_error());
-		$row_RCDanhmuc_CN = mysql_fetch_assoc($RCDanhmuc_CN);
-		$totalRows_RCDanhmuc_CN = mysql_num_rows($RCDanhmuc_CN);
+		$RCDanhmuc_CN = mysqli_query($query_RCDanhmuc_CN, $Myconnection) or die(mysqli_error());
+		$row_RCDanhmuc_CN = mysqli_fetch_assoc($RCDanhmuc_CN);
+		$totalRows_RCDanhmuc_CN = mysqli_num_rows($RCDanhmuc_CN);
 	?>
       <form action="<?php echo $editFormAction; ?>" method="post" name="form1" id="form1">
         <table width="260" align="center">
@@ -96,6 +96,6 @@ $totalRows_RCDanhmuc_DS = mysql_num_rows($RCDanhmuc_DS);
   </tr>
 </table>
 <?php
-mysql_free_result($RCDanhmuc_CN);
-mysql_free_result($RCDanhmuc_DS);
+mysqli_free_result($RCDanhmuc_CN);
+mysqli_free_result($RCDanhmuc_DS);
 ?>

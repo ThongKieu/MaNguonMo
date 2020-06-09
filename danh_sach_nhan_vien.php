@@ -1,14 +1,14 @@
 <?php
 $keyword = get_param('keyword');
-mysql_select_db($database_Myconnection, $Myconnection);
+mysqli_select_db($database_Myconnection, $Myconnection);
 $query_RCdanh_sach = "SELECT * FROM tlb_nhanvien";
 if($keyword!=''){
 	$query_RCdanh_sach .= " Where ho_ten like '%".$keyword."%'";
 }
 
-$RCdanh_sach = mysql_query($query_RCdanh_sach, $Myconnection) or die(mysql_error());
-$row_RCdanh_sach = mysql_fetch_assoc($RCdanh_sach);
-$totalRows_RCdanh_sach = mysql_num_rows($RCdanh_sach);
+$RCdanh_sach = mysqli_query($query_RCdanh_sach, $Myconnection) or die(mysqli_error());
+$row_RCdanh_sach = mysqli_fetch_assoc($RCdanh_sach);
+$totalRows_RCdanh_sach = mysqli_num_rows($RCdanh_sach);
 ?>
 <div style="padding:10px; text-align:right;">
 <form name="fsearch">
@@ -44,8 +44,8 @@ if($keyword!=''){
       <td class="row1" width="113" align="left" ><a href="index.php?require=cap_nhat_thong_tin_nhan_vien.php&catID=<?php echo $row_RCdanh_sach['ma_nhan_vien']; ?>&title=Thông tin nhân viên">Xem chi tiết</a></td>
       <td class="row1" width="113" align="left" ><a href="index.php?require=cap_nhat_thong_tin_cong_viec.php&catID=<?php echo $row_RCdanh_sach['ma_nhan_vien']; ?>&title=Thông tin công việc">Xem chi tiết</a></td>
     </tr>
-    <?php } while ($row_RCdanh_sach = mysql_fetch_assoc($RCdanh_sach)); ?>
+    <?php } while ($row_RCdanh_sach = mysqli_fetch_assoc($RCdanh_sach)); ?>
 </table>
 <?php
-mysql_free_result($RCdanh_sach);
+mysqli_free_result($RCdanh_sach);
 ?>

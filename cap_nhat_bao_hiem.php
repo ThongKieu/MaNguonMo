@@ -8,7 +8,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
     $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
   }
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+  $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($theValue) : mysqli_escape_string($theValue);
 
   switch ($theType) {
     case "text":
@@ -47,8 +47,8 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
                        GetSQLValueString($_POST['noi_cap_bhyt'], "text"),
                        GetSQLValueString($_POST['ma_nhan_vien'], "text"));
 
-  mysql_select_db($database_Myconnection, $Myconnection);
-  $Result1 = mysql_query($updateSQL, $Myconnection) or die(mysql_error());
+  mysqli_select_db($database_Myconnection, $Myconnection);
+  $Result1 = mysqli_query($updateSQL, $Myconnection) or die(mysqli_error());
 
   $updateGoTo = "them_moi_bao_hiem.php";
   if (isset($_SERVER['QUERY_STRING'])) {
@@ -58,11 +58,11 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
   sprintf("Location: %s", $updateGoTo);
 }
 
-mysql_select_db($database_Myconnection, $Myconnection);
+mysqli_select_db($database_Myconnection, $Myconnection);
 $query_RCBaohiem_DS = "SELECT * FROM tlb_baohiem";
-$RCBaohiem_DS = mysql_query($query_RCBaohiem_DS, $Myconnection) or die(mysql_error());
-$row_RCBaohiem_DS = mysql_fetch_assoc($RCBaohiem_DS);
-$totalRows_RCBaohiem_DS = mysql_num_rows($RCBaohiem_DS);
+$RCBaohiem_DS = mysqli_query($query_RCBaohiem_DS, $Myconnection) or die(mysqli_error());
+$row_RCBaohiem_DS = mysqli_fetch_assoc($RCBaohiem_DS);
+$totalRows_RCBaohiem_DS = mysqli_num_rows($RCBaohiem_DS);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -102,15 +102,15 @@ $totalRows_RCBaohiem_DS = mysql_num_rows($RCBaohiem_DS);
   </tr>
 </table>
 <?php
-mysql_free_result($RCBaohiem_DS);
+mysqli_free_result($RCBaohiem_DS);
 ?>
 <p></p>
 <?php
-mysql_select_db($database_Myconnection, $Myconnection);
+mysqli_select_db($database_Myconnection, $Myconnection);
 $query_RCBaohiem_CN = "SELECT * FROM tlb_baohiem inner join tlb_nhanvien on tlb_baohiem.ma_nhan_vien = tlb_nhanvien.ma_nhan_vien where tlb_baohiem.ma_nhan_vien = '$ma_nv'";
-$RCBaohiem_CN = mysql_query($query_RCBaohiem_CN, $Myconnection) or die(mysql_error());
-$row_RCBaohiem_CN = mysql_fetch_assoc($RCBaohiem_CN);
-$totalRows_RCBaohiem_CN = mysql_num_rows($RCBaohiem_CN);
+$RCBaohiem_CN = mysqli_query($query_RCBaohiem_CN, $Myconnection) or die(mysqli_error());
+$row_RCBaohiem_CN = mysqli_fetch_assoc($RCBaohiem_CN);
+$totalRows_RCBaohiem_CN = mysqli_num_rows($RCBaohiem_CN);
 ?>
 <form action="<?php echo $editFormAction; ?>" method="post" name="form1" id="form1">
   <table class="row2" width="800" align="center" cellpadding="3" cellspacing="3" bgcolor="#66CCFF">
@@ -155,5 +155,5 @@ $totalRows_RCBaohiem_CN = mysql_num_rows($RCBaohiem_CN);
 </body>
 </html>
 <?php
-mysql_free_result($RCBaohiem_CN);
+mysqli_free_result($RCBaohiem_CN);
 ?>
