@@ -8,7 +8,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
     $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
   }
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+  $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($theValue) : mysqli_escape_string($theValue);
 
   switch ($theType) {
     case "text":
@@ -46,8 +46,8 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
                        GetSQLValueString($_POST['loai_hop_dong'], "int"),
                        GetSQLValueString($_POST['ghi_chu'], "text"));
 
-  mysql_select_db($database_Myconnection, $Myconnection);
-  $Result1 = mysql_query($insertSQL, $Myconnection) or die(mysql_error());
+  mysqli_select_db($database_Myconnection, $Myconnection);
+  $Result1 = mysqli_query($insertSQL, $Myconnection) or die(mysqli_error());
 
   $insertGoTo = "them_moi_hop_dong.php";
   if (isset($_SERVER['QUERY_STRING'])) {
@@ -57,11 +57,11 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
   sprintf("Location: %s", $insertGoTo);
 }
 
-mysql_select_db($database_Myconnection, $Myconnection);
+mysqli_select_db($database_Myconnection, $Myconnection);
 $query_RCHopdong_TM = "SELECT * FROM tlb_hopdong where ma_nhan_vien = '$ma_nv'";
-$RCHopdong_TM = mysql_query($query_RCHopdong_TM, $Myconnection) or die(mysql_error());
-$row_RCHopdong_TM = mysql_fetch_assoc($RCHopdong_TM);
-$totalRows_RCHopdong_TM = mysql_num_rows($RCHopdong_TM);
+$RCHopdong_TM = mysqli_query($query_RCHopdong_TM, $Myconnection) or die(mysqli_error());
+$row_RCHopdong_TM = mysqli_fetch_assoc($RCHopdong_TM);
+$totalRows_RCHopdong_TM = mysqli_num_rows($RCHopdong_TM);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -114,7 +114,7 @@ if ($totalRows_RCHopdong_TM<>0)
       <td width="50" class="row1"><a href="index.php?require=cap_nhat_hop_dong.php&catID=<?php echo $ma_nv; ?>&tomID=<?php echo $row_RCHopdong_TM['id']; ?>&title=Cập nhật hợp đồng">Sửa</a></td>
       <td width="50" class="row1">Xoá</td>
     </tr>
-    <?php } while ($row_RCHopdong_TM = mysql_fetch_assoc($RCHopdong_TM)); ?>
+    <?php } while ($row_RCHopdong_TM = mysqli_fetch_assoc($RCHopdong_TM)); ?>
 </table>
 <?php
 }
@@ -168,5 +168,5 @@ if ($totalRows_RCHopdong_TM<>0)
 </body>
 </html>
 <?php
-mysql_free_result($RCHopdong_TM);
+mysqli_free_result($RCHopdong_TM);
 ?>

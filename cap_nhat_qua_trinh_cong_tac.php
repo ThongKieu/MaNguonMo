@@ -9,7 +9,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
     $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
   }
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+  $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($theValue) : mysqli_escape_string($theValue);
 
   switch ($theType) {
     case "text":
@@ -48,8 +48,8 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
                        GetSQLValueString($_POST['ghi_chu'], "text"),
                        GetSQLValueString($_POST['id'], "int"));
 
-  mysql_select_db($database_Myconnection, $Myconnection);
-  $Result1 = mysql_query($updateSQL, $Myconnection) or die(mysql_error());
+  mysqli_select_db($database_Myconnection, $Myconnection);
+  $Result1 = mysqli_query($updateSQL, $Myconnection) or die(mysqli_error());
 
   $updateGoTo = "them_moi_qua_trinh_cong_tac.php";
   if (isset($_SERVER['QUERY_STRING'])) {
@@ -59,11 +59,11 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
   sprintf("Location: %s", $updateGoTo);
 }
 
-mysql_select_db($database_Myconnection, $Myconnection);
+mysqli_select_db($database_Myconnection, $Myconnection);
 $query_RCQuatrinh_DS = "SELECT * FROM tlb_quatrinhcongtac where ma_nhan_vien = '$ma_nv'";
-$RCQuatrinh_DS = mysql_query($query_RCQuatrinh_DS, $Myconnection) or die(mysql_error());
-$row_RCQuatrinh_DS = mysql_fetch_assoc($RCQuatrinh_DS);
-$totalRows_RCQuatrinh_DS = mysql_num_rows($RCQuatrinh_DS);
+$RCQuatrinh_DS = mysqli_query($query_RCQuatrinh_DS, $Myconnection) or die(mysqli_error());
+$row_RCQuatrinh_DS = mysqli_fetch_assoc($RCQuatrinh_DS);
+$totalRows_RCQuatrinh_DS = mysqli_num_rows($RCQuatrinh_DS);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -100,19 +100,19 @@ $totalRows_RCQuatrinh_DS = mysql_num_rows($RCQuatrinh_DS);
       <td width="40" class="row1"><a href="index.php?require=cap_nhat_qua_trinh_cong_tac.php&catID=<?php echo $ma_nv; ?>&tomID=<?php echo $row_RCQuatrinh_DS['id']; ?>&title=Cập nhật quá trình công tác">Sửa</a></td>
       <td width="40" class="row1">Xoá</td>
     </tr>
-    <?php } while ($row_RCQuatrinh_DS = mysql_fetch_assoc($RCQuatrinh_DS)); ?>
+    <?php } while ($row_RCQuatrinh_DS = mysqli_fetch_assoc($RCQuatrinh_DS)); ?>
 </table>
 <p>
   <?php
-mysql_free_result($RCQuatrinh_DS);
+mysqli_free_result($RCQuatrinh_DS);
 ?>
 </p>
 <?php
-mysql_select_db($database_Myconnection, $Myconnection);
+mysqli_select_db($database_Myconnection, $Myconnection);
 $query_RCQuatrinh_CN = "SELECT * FROM tlb_quatrinhcongtac where ma_nhan_vien = '$ma_nv' and id = $id";
-$RCQuatrinh_CN = mysql_query($query_RCQuatrinh_CN, $Myconnection) or die(mysql_error());
-$row_RCQuatrinh_CN = mysql_fetch_assoc($RCQuatrinh_CN);
-$totalRows_RCQuatrinh_CN = mysql_num_rows($RCQuatrinh_CN);
+$RCQuatrinh_CN = mysqli_query($query_RCQuatrinh_CN, $Myconnection) or die(mysqli_error());
+$row_RCQuatrinh_CN = mysqli_fetch_assoc($RCQuatrinh_CN);
+$totalRows_RCQuatrinh_CN = mysqli_num_rows($RCQuatrinh_CN);
 ?>
 <form action="<?php echo $editFormAction; ?>" method="post" name="form1" id="form1">
   <table class="row2" width="800" align="center" cellpadding="3" cellspacing="3" bgcolor="#66CCFF">
@@ -150,7 +150,7 @@ $totalRows_RCQuatrinh_CN = mysql_num_rows($RCQuatrinh_CN);
   <input type="hidden" name="id" value="<?php echo $row_RCQuatrinh_CN['id']; ?>" />
 </form>
 <?php
-mysql_free_result($RCQuatrinh_CN);
+mysqli_free_result($RCQuatrinh_CN);
 ?>
 <p>&nbsp;</p>
 </body>

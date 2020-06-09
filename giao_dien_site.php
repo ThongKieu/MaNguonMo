@@ -19,7 +19,7 @@ GetSQLValueString($ThoiDiemGiaoHang,"text"),
 GetSQLValueString($_POST['TenNguoiNhan'], "text"), 
 GetSQLValueString($_POST['DiaDiemGiaoHang'], "text")
 ); 
-mysql_query($insertSQL) or die(mysql_error()); 
+mysqli_query($insertSQL) or die(mysqli_error()); 
 $lastID =mysql_insert_id();
 $_SESSION['id_order']=$lastID;	
 header("Location:". $url); 

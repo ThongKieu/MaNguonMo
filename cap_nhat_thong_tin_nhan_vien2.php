@@ -8,7 +8,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
     $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
   }
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+  $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($theValue) : mysqli_escape_string($theValue);
 
   switch ($theType) {
     case "text":
@@ -68,8 +68,8 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
                        GetSQLValueString($_POST['hinh_anh'], "text"),
                        GetSQLValueString($_POST['ma_nhan_vien'], "text"));
 
-  mysql_select_db($database_Myconnection, $Myconnection);
-  $Result1 = mysql_query($updateSQL, $Myconnection) or die(mysql_error());
+  mysqli_select_db($database_Myconnection, $Myconnection);
+  $Result1 = mysqli_query($updateSQL, $Myconnection) or die(mysqli_error());
 
   $updateGoTo = "danh_sach_nhan_vien.php";
   if (isset($_SERVER['QUERY_STRING'])) {
@@ -79,11 +79,11 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
   sprintf("Location: %s", $updateGoTo);
 }
 
-mysql_select_db($database_Myconnection, $Myconnection);
+mysqli_select_db($database_Myconnection, $Myconnection);
 $query_RCcapnhat_nhanvien = "SELECT * FROM tlb_nhanvien where ma_nhan_vien = '$ma_nv'";
-$RCcapnhat_nhanvien = mysql_query($query_RCcapnhat_nhanvien, $Myconnection) or die(mysql_error());
-$row_RCcapnhat_nhanvien = mysql_fetch_assoc($RCcapnhat_nhanvien);
-$totalRows_RCcapnhat_nhanvien = mysql_num_rows($RCcapnhat_nhanvien);
+$RCcapnhat_nhanvien = mysqli_query($query_RCcapnhat_nhanvien, $Myconnection) or die(mysqli_error());
+$row_RCcapnhat_nhanvien = mysqli_fetch_assoc($RCcapnhat_nhanvien);
+$totalRows_RCcapnhat_nhanvien = mysqli_num_rows($RCcapnhat_nhanvien);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -209,5 +209,5 @@ body,td,th {
 </body>
 </html>
 <?php
-mysql_free_result($RCcapnhat_nhanvien);
+mysqli_free_result($RCcapnhat_nhanvien);
 ?>

@@ -9,7 +9,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
     $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
   }
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+  $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($theValue) : mysqli_escape_string($theValue);
 
   switch ($theType) {
     case "text":
@@ -52,8 +52,8 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
                        GetSQLValueString($_POST['ghi_chu'], "text"),
                        GetSQLValueString($_POST['id'], "int"));
 
-  mysql_select_db($database_Myconnection, $Myconnection);
-  $Result1 = mysql_query($updateSQL, $Myconnection) or die(mysql_error());
+  mysqli_select_db($database_Myconnection, $Myconnection);
+  $Result1 = mysqli_query($updateSQL, $Myconnection) or die(mysqli_error());
 
   $updateGoTo = "them_moi_quan_he_gia_dinh.php";
   if (isset($_SERVER['QUERY_STRING'])) {
@@ -92,11 +92,11 @@ body,td,th {
   <tr>
     <td width="475" class="row2" valign="top">
    <?php
-   mysql_select_db($database_Myconnection, $Myconnection);
+   mysqli_select_db($database_Myconnection, $Myconnection);
    $query_RCQuanhe_DS = "SELECT * FROM tlb_quanhegiadinh where ma_nhan_vien = '$ma_nv'";
-	$RCQuanhe_DS = mysql_query($query_RCQuanhe_DS, $Myconnection) or die(mysql_error());
-	$row_RCQuanhe_DS = mysql_fetch_assoc($RCQuanhe_DS);
-	$totalRows_RCQuanhe_DS = mysql_num_rows($RCQuanhe_DS); ?>
+	$RCQuanhe_DS = mysqli_query($query_RCQuanhe_DS, $Myconnection) or die(mysqli_error());
+	$row_RCQuanhe_DS = mysqli_fetch_assoc($RCQuanhe_DS);
+	$totalRows_RCQuanhe_DS = mysqli_num_rows($RCQuanhe_DS); ?>
       <table border="0" width="475" align="center" cellpadding="1" cellspacing="1">
         <tr>
           <th width="170">Tên người thân</th>
@@ -113,19 +113,19 @@ body,td,th {
                 <td width="40" class="row1"><a href="index.php?require=cap_nhat_quan_he_gia_dinh.php&catID=<?php echo $ma_nv; ?>&tomID=<?php echo $row_RCQuanhe_DS['id']; ?>&title=Cập nhật quan hệ gia đình">Sửa</a></td>
                 <td width="40" class="row1">Xoá</td>
         	</tr>
-             <?php } while ($row_RCQuanhe_DS = mysql_fetch_assoc($RCQuanhe_DS)); ?>
+             <?php } while ($row_RCQuanhe_DS = mysqli_fetch_assoc($RCQuanhe_DS)); ?>
 		</table>
 		<?php
-			mysql_free_result($RCQuanhe_DS);
+			mysqli_free_result($RCQuanhe_DS);
 		?>
 </td>
       <td class="row2" width="290">
       <?php
-	  	mysql_select_db($database_Myconnection, $Myconnection);
+	  	mysqli_select_db($database_Myconnection, $Myconnection);
 		$query_RCQuanhe_CN = "SELECT * FROM tlb_quanhegiadinh where id= $id";
-		$RCQuanhe_CN = mysql_query($query_RCQuanhe_CN, $Myconnection) or die(mysql_error());
-		$row_RCQuanhe_CN = mysql_fetch_assoc($RCQuanhe_CN);
-		$totalRows_RCQuanhe_CN = mysql_num_rows($RCQuanhe_CN);
+		$RCQuanhe_CN = mysqli_query($query_RCQuanhe_CN, $Myconnection) or die(mysqli_error());
+		$row_RCQuanhe_CN = mysqli_fetch_assoc($RCQuanhe_CN);
+		$totalRows_RCQuanhe_CN = mysqli_num_rows($RCQuanhe_CN);
 	  ?>
       <form action="<?php echo $editFormAction; ?>" method="post" name="form1" id="form1">
         <table width="290" align="center">
@@ -182,7 +182,7 @@ body,td,th {
         <input type="hidden" name="id" value="<?php echo $row_RCQuanhe_CN['id']; ?>" />
       </form>
       <?php
-		mysql_free_result($RCQuanhe_CN);
+		mysqli_free_result($RCQuanhe_CN);
 		?>
     </td>
     </tr>

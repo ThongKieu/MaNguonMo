@@ -8,7 +8,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
     $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
   }
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+  $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($theValue) : mysqli_escape_string($theValue);
 
   switch ($theType) {
     case "text":
@@ -32,11 +32,11 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 }
 }
 
-mysql_select_db($database_Myconnection, $Myconnection);
+mysqli_select_db($database_Myconnection, $Myconnection);
 $query_RCdanh_sach = "SELECT * FROM tlb_nhanvien where nghi_viec =1";
-$RCdanh_sach = mysql_query($query_RCdanh_sach, $Myconnection) or die(mysql_error());
-$row_RCdanh_sach = mysql_fetch_assoc($RCdanh_sach);
-$totalRows_RCdanh_sach = mysql_num_rows($RCdanh_sach);
+$RCdanh_sach = mysqli_query($query_RCdanh_sach, $Myconnection) or die(mysqli_error());
+$row_RCdanh_sach = mysqli_fetch_assoc($RCdanh_sach);
+$totalRows_RCdanh_sach = mysqli_num_rows($RCdanh_sach);
 ?>
 <table class="tablebg" border="0" width="800" align="center" cellpadding="1" cellspacing="1">
   <tr>
@@ -61,8 +61,8 @@ $totalRows_RCdanh_sach = mysql_num_rows($RCdanh_sach);
       <td class="row1" width="113" align="left" ><a href="index.php?require=cap_nhat_thong_tin_nhan_vien.php&catID=<?php echo $row_RCdanh_sach['ma_nhan_vien']; ?>&title=Thông tin nhân viên">Xem chi tiết</a></td>
       <td class="row1" width="113" align="left" ><a href="index.php?require=cap_nhat_thong_tin_cong_viec.php&catID=<?php echo $row_RCdanh_sach['ma_nhan_vien']; ?>&title=Thông tin công việc">Xem chi tiết</a></td>
     </tr>
-    <?php } while ($row_RCdanh_sach = mysql_fetch_assoc($RCdanh_sach)); ?>
+    <?php } while ($row_RCdanh_sach = mysqli_fetch_assoc($RCdanh_sach)); ?>
 </table>
 <?php
-mysql_free_result($RCdanh_sach);
+mysqli_free_result($RCdanh_sach);
 ?>

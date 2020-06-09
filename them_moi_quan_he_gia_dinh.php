@@ -7,8 +7,8 @@ if ($action=="del")
 	$tomID = $_GET['tomID'];
 	$deleteSQL = "DELETE FROM tlb_quanhegiadinh WHERE id=$tomID";                     
 	
-	  mysql_select_db($database_Myconnection, $Myconnection);
-	  $Result1 = mysql_query($deleteSQL, $Myconnection) or die(mysql_error());
+	  mysqli_select_db($database_Myconnection, $Myconnection);
+	  $Result1 = mysqli_query($deleteSQL, $Myconnection) or die(mysqli_error());
 	
 	  $deleteGoTo = "them_danh_muc.php";
 	  if (isset($_SERVER['QUERY_STRING'])) {
@@ -24,7 +24,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
     $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
   }
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+  $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($theValue) : mysqli_escape_string($theValue);
 
   switch ($theType) {
     case "text":
@@ -66,8 +66,8 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
                        GetSQLValueString($_POST['dtcq'], "text"),
                        GetSQLValueString($_POST['ghi_chu'], "text"));
 
-  mysql_select_db($database_Myconnection, $Myconnection);
-  $Result1 = mysql_query($insertSQL, $Myconnection) or die(mysql_error());
+  mysqli_select_db($database_Myconnection, $Myconnection);
+  $Result1 = mysqli_query($insertSQL, $Myconnection) or die(mysqli_error());
 
   $insertGoTo = "cap_nhat_quan_he_gia_dinh.php";
   if (isset($_SERVER['QUERY_STRING'])) {
@@ -77,11 +77,11 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
   sprintf("Location: %s", $insertGoTo);
 }
 
-mysql_select_db($database_Myconnection, $Myconnection);
+mysqli_select_db($database_Myconnection, $Myconnection);
 $query_RCQuanHeGD = "SELECT * FROM tlb_quanhegiadinh where ma_nhan_vien = '$ma_nv'";
-$RCQuanHeGD = mysql_query($query_RCQuanHeGD, $Myconnection) or die(mysql_error());
-$row_RCQuanHeGD = mysql_fetch_assoc($RCQuanHeGD);
-$totalRows_RCQuanHeGD = mysql_num_rows($RCQuanHeGD);
+$RCQuanHeGD = mysqli_query($query_RCQuanHeGD, $Myconnection) or die(mysqli_error());
+$row_RCQuanHeGD = mysqli_fetch_assoc($RCQuanHeGD);
+$totalRows_RCQuanHeGD = mysqli_num_rows($RCQuanHeGD);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -134,7 +134,7 @@ body,td,th {
             <td class="row1"><a href="index.php?require=cap_nhat_quan_he_gia_dinh.php&catID=<?php echo $ma_nv; ?>&tomID=<?php echo $row_RCQuanHeGD['id']; ?>&title=Cập nhật quan hệ gia đình">Sửa</a></td>
             <td class="row1"><a href="index.php?require=them_moi_quan_he_gia_dinh.php&catID=<?php echo $ma_nv; ?>&tomID=<?php echo $row_RCQuanHeGD['id']; ?>&title=Cập nhật quan hệ gia đình&action=del">Xoá</a></td>
           </tr>
-          <?php } while ($row_RCQuanHeGD = mysql_fetch_assoc($RCQuanHeGD)); ?>
+          <?php } while ($row_RCQuanHeGD = mysqli_fetch_assoc($RCQuanHeGD)); ?>
       </table>
       <?php
 		}
@@ -196,5 +196,5 @@ body,td,th {
 </body>
 </html>
 <?php
-mysql_free_result($RCQuanHeGD);
+mysqli_free_result($RCQuanHeGD);
 ?>

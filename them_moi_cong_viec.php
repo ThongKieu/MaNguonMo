@@ -8,7 +8,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
     $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
   }
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+  $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($theValue) : mysqli_escape_string($theValue);
 
   switch ($theType) {
     case "text":
@@ -61,8 +61,8 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
                        GetSQLValueString(get_param('ton_giao_id'), "text"),
                        GetSQLValueString(get_param('tinh_thanh_id'), "text"));
 
-  mysql_select_db($database_Myconnection, $Myconnection);
-  $Result1 = mysql_query($insertSQL, $Myconnection) or die(mysql_error());
+  mysqli_select_db($database_Myconnection, $Myconnection);
+  $Result1 = mysqli_query($insertSQL, $Myconnection) or die(mysqli_error());
 
   $insertGoTo = "danh_sach_nhan_vien.php";
   if (isset($_SERVER['QUERY_STRING'])) {
@@ -74,66 +74,66 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 	location($url);
 }
 
-mysql_select_db($database_Myconnection, $Myconnection);
+mysqli_select_db($database_Myconnection, $Myconnection);
 $query_RCPhongban = "SELECT * FROM tlb_phongban";
-$RCPhongban = mysql_query($query_RCPhongban, $Myconnection) or die(mysql_error());
-$row_RCPhongban = mysql_fetch_assoc($RCPhongban);
-$totalRows_RCPhongban = mysql_num_rows($RCPhongban);
+$RCPhongban = mysqli_query($query_RCPhongban, $Myconnection) or die(mysqli_error());
+$row_RCPhongban = mysqli_fetch_assoc($RCPhongban);
+$totalRows_RCPhongban = mysqli_num_rows($RCPhongban);
 //Lấy mã nhân viên đưa vào để cập nhật
 $query_RCThem_congviec = "SELECT * FROM tlb_nhanvien where ma_nhan_vien= '$ma_nv'";
-$RCThem_congviec = mysql_query($query_RCThem_congviec, $Myconnection) or die(mysql_error());
-$row_RCThem_congviec = mysql_fetch_assoc($RCThem_congviec);
-$totalRows_RCThem_congviec = mysql_num_rows($RCThem_congviec);
+$RCThem_congviec = mysqli_query($query_RCThem_congviec, $Myconnection) or die(mysqli_error());
+$row_RCThem_congviec = mysqli_fetch_assoc($RCThem_congviec);
+$totalRows_RCThem_congviec = mysqli_num_rows($RCThem_congviec);
 //lay danh sach cong viec khi cap nhat
 $query_RCctcongviec = "SELECT * FROM tlb_ctcongviec";
-$RCctcongviec = mysql_query($query_RCctcongviec, $Myconnection) or die(mysql_error());
-$row_RCctcongviec = mysql_fetch_assoc($RCctcongviec);
-$totalRows_RCctcongviec = mysql_num_rows($RCctcongviec);
+$RCctcongviec = mysqli_query($query_RCctcongviec, $Myconnection) or die(mysqli_error());
+$row_RCctcongviec = mysqli_fetch_assoc($RCctcongviec);
+$totalRows_RCctcongviec = mysqli_num_rows($RCctcongviec);
 // danh sach chuc vu
 $query_RCChucvu = "SELECT * FROM tlb_chucvu";
-$RCChucvu = mysql_query($query_RCChucvu, $Myconnection) or die(mysql_error());
-$row_RCChucvu = mysql_fetch_assoc($RCChucvu);
-$totalRows_RCChucvu = mysql_num_rows($RCChucvu);
+$RCChucvu = mysqli_query($query_RCChucvu, $Myconnection) or die(mysqli_error());
+$row_RCChucvu = mysqli_fetch_assoc($RCChucvu);
+$totalRows_RCChucvu = mysqli_num_rows($RCChucvu);
 //lay danh sach Hoc van
 $query_RCHocvan = "SELECT * FROM tlb_hocvan";
-$RCHocvan = mysql_query($query_RCHocvan, $Myconnection) or die(mysql_error());
-$row_RCHocvan = mysql_fetch_assoc($RCHocvan);
-$totalRows_RCHocvan = mysql_num_rows($RCHocvan);
+$RCHocvan = mysqli_query($query_RCHocvan, $Myconnection) or die(mysqli_error());
+$row_RCHocvan = mysqli_fetch_assoc($RCHocvan);
+$totalRows_RCHocvan = mysqli_num_rows($RCHocvan);
 // lay danh sach bang cap
 $query_RCBangcap = "SELECT * FROM tlb_bangcap";
-$RCBangcap = mysql_query($query_RCBangcap, $Myconnection) or die(mysql_error());
-$row_RCBangcap = mysql_fetch_assoc($RCBangcap);
-$totalRows_RCBangcap = mysql_num_rows($RCBangcap);
+$RCBangcap = mysqli_query($query_RCBangcap, $Myconnection) or die(mysqli_error());
+$row_RCBangcap = mysqli_fetch_assoc($RCBangcap);
+$totalRows_RCBangcap = mysqli_num_rows($RCBangcap);
 //lay danh sach ngoai ngu
 $query_RCNgoaingu = "SELECT * FROM tlb_ngoaingu";
-$RCNgoaingu = mysql_query($query_RCNgoaingu, $Myconnection) or die(mysql_error());
-$row_RCNgoaingu = mysql_fetch_assoc($RCNgoaingu);
-$totalRows_RCNgoaingu = mysql_num_rows($RCNgoaingu);
+$RCNgoaingu = mysqli_query($query_RCNgoaingu, $Myconnection) or die(mysqli_error());
+$row_RCNgoaingu = mysqli_fetch_assoc($RCNgoaingu);
+$totalRows_RCNgoaingu = mysqli_num_rows($RCNgoaingu);
 //lay danh sach tin hoc
 $query_RCTinhoc = "SELECT * FROM tlb_tinhoc";
-$RCTinhoc = mysql_query($query_RCTinhoc, $Myconnection) or die(mysql_error());
-$row_RCTinhoc = mysql_fetch_assoc($RCTinhoc);
-$totalRows_RCTinhoc = mysql_num_rows($RCTinhoc);
+$RCTinhoc = mysqli_query($query_RCTinhoc, $Myconnection) or die(mysqli_error());
+$row_RCTinhoc = mysqli_fetch_assoc($RCTinhoc);
+$totalRows_RCTinhoc = mysqli_num_rows($RCTinhoc);
 //lay danh sach dan toc
 $query_RCDantoc = "SELECT * FROM tlb_dantoc";
-$RCDantoc = mysql_query($query_RCDantoc, $Myconnection) or die(mysql_error());
-$row_RCDantoc = mysql_fetch_assoc($RCDantoc);
-$totalRows_RCDantoc = mysql_num_rows($RCDantoc);
+$RCDantoc = mysqli_query($query_RCDantoc, $Myconnection) or die(mysqli_error());
+$row_RCDantoc = mysqli_fetch_assoc($RCDantoc);
+$totalRows_RCDantoc = mysqli_num_rows($RCDantoc);
 //Lay danh sach quoc tich
 $query_RCQuoctich = "SELECT * FROM tlb_quoctich";
-$RCQuoctich = mysql_query($query_RCQuoctich, $Myconnection) or die(mysql_error());
-$row_RCQuoctich = mysql_fetch_assoc($RCQuoctich);
-$totalRows_RCQuoctich = mysql_num_rows($RCQuoctich);
+$RCQuoctich = mysqli_query($query_RCQuoctich, $Myconnection) or die(mysqli_error());
+$row_RCQuoctich = mysqli_fetch_assoc($RCQuoctich);
+$totalRows_RCQuoctich = mysqli_num_rows($RCQuoctich);
 //Lay danh sach ton giao
 $query_RCTongiao = "SELECT * FROM tlb_tongiao";
-$RCTongiao = mysql_query($query_RCTongiao, $Myconnection) or die(mysql_error());
-$row_RCTongiao = mysql_fetch_assoc($RCTongiao);
-$totalRows_RCTongiao = mysql_num_rows($RCTongiao);
+$RCTongiao = mysqli_query($query_RCTongiao, $Myconnection) or die(mysqli_error());
+$row_RCTongiao = mysqli_fetch_assoc($RCTongiao);
+$totalRows_RCTongiao = mysqli_num_rows($RCTongiao);
 //Lay danh sach tinh thanh
 $query_RCTinhthanh = "SELECT * FROM tlb_tinhthanh";
-$RCTinhthanh = mysql_query($query_RCTinhthanh, $Myconnection) or die(mysql_error());
-$row_RCTinhthanh = mysql_fetch_assoc($RCTinhthanh);
-$totalRows_RCTinhthanh = mysql_num_rows($RCTinhthanh);
+$RCTinhthanh = mysqli_query($query_RCTinhthanh, $Myconnection) or die(mysqli_error());
+$row_RCTinhthanh = mysqli_fetch_assoc($RCTinhthanh);
+$totalRows_RCTinhthanh = mysqli_num_rows($RCTinhthanh);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -173,7 +173,7 @@ do {
 ?>
         <option value="<?php echo $row_RCPhongban['phong_ban_id']?>"><?php echo $row_RCPhongban['ten_phong_ban']?></option>
         <?php
-} while ($row_RCPhongban = mysql_fetch_assoc($RCPhongban));
+} while ($row_RCPhongban = mysqli_fetch_assoc($RCPhongban));
 ?>
       </select></td>
       <td>Học vấn:</td>
@@ -183,7 +183,7 @@ do {
 ?>
         <option value="<?php echo $row_RCHocvan['hoc_van_id']?>"><?php echo $row_RCHocvan['ten_hoc_van']?></option>
         <?php
-} while ($row_RCHocvan = mysql_fetch_assoc($RCHocvan));
+} while ($row_RCHocvan = mysqli_fetch_assoc($RCHocvan));
 ?>
       </select></td>
     </tr>
@@ -195,7 +195,7 @@ do {
 ?>
         <option value="<?php echo $row_RCctcongviec['cong_viec_id']?>"><?php echo $row_RCctcongviec['ten_cong_viec']?></option>
         <?php
-} while ($row_RCctcongviec = mysql_fetch_assoc($RCctcongviec));
+} while ($row_RCctcongviec = mysqli_fetch_assoc($RCctcongviec));
 ?>
       </select></td>
       <td>Bằng cấp:</td>
@@ -205,7 +205,7 @@ do {
 ?>
         <option value="<?php echo $row_RCBangcap['bang_cap_id']?>"><?php echo $row_RCBangcap['ten_bang_cap']?></option>
         <?php
-} while ($row_RCBangcap = mysql_fetch_assoc($RCBangcap));
+} while ($row_RCBangcap = mysqli_fetch_assoc($RCBangcap));
 ?>
       </select></td>
     </tr>
@@ -217,7 +217,7 @@ do {
 ?>
         <option value="<?php echo $row_RCChucvu['chuc_vu_id']?>"><?php echo $row_RCChucvu['ten_chuc_vu']?></option>
         <?php
-} while ($row_RCChucvu = mysql_fetch_assoc($RCChucvu));
+} while ($row_RCChucvu = mysqli_fetch_assoc($RCChucvu));
 ?>
       </select></td>
       <td>Ngoại ngữ:</td>
@@ -227,7 +227,7 @@ do {
 ?>
         <option value="<?php echo $row_RCNgoaingu['ngoai_ngu_id']?>"><?php echo $row_RCNgoaingu['ten_ngoai_ngu']?></option>
         <?php
-} while ($row_RCNgoaingu = mysql_fetch_assoc($RCNgoaingu));
+} while ($row_RCNgoaingu = mysqli_fetch_assoc($RCNgoaingu));
 ?>
       </select></td>
     </tr>
@@ -241,7 +241,7 @@ do {
 ?>
         <option value="<?php echo $row_RCTinhoc['tin_hoc_id']?>"><?php echo $row_RCTinhoc['ten_tin_hoc']?></option>
         <?php
-} while ($row_RCTinhoc = mysql_fetch_assoc($RCTinhoc));
+} while ($row_RCTinhoc = mysqli_fetch_assoc($RCTinhoc));
 ?>
       </select></td>
     </tr>
@@ -255,7 +255,7 @@ do {
 ?>
         <option value="<?php echo $row_RCDantoc['dan_toc_id']?>"><?php echo $row_RCDantoc['ten_dan_toc']?></option>
         <?php
-} while ($row_RCDantoc = mysql_fetch_assoc($RCDantoc));
+} while ($row_RCDantoc = mysqli_fetch_assoc($RCDantoc));
 ?>
       </select></td>
     </tr>
@@ -269,7 +269,7 @@ do {
 ?>
         <option value="<?php echo $row_RCQuoctich['quoc_tich_id']?>"><?php echo $row_RCQuoctich['ten_quoc_tich']?></option>
         <?php
-} while ($row_RCQuoctich = mysql_fetch_assoc($RCQuoctich));
+} while ($row_RCQuoctich = mysqli_fetch_assoc($RCQuoctich));
 ?>
       </select></td>
     </tr>
@@ -283,7 +283,7 @@ do {
 ?>
         <option value="<?php echo $row_RCTongiao['ton_giao_id']?>"><?php echo $row_RCTongiao['ten_ton_giao']?></option>
         <?php
-} while ($row_RCTongiao = mysql_fetch_assoc($RCTongiao));
+} while ($row_RCTongiao = mysqli_fetch_assoc($RCTongiao));
 ?>
       </select></td>
     </tr>
@@ -297,7 +297,7 @@ do {
 ?>
         <option value="<?php echo $row_RCTinhthanh['tinh_thanh_id']?>"><?php echo $row_RCTinhthanh['ten_tinh_thanh']?></option>
         <?php
-} while ($row_RCTinhthanh = mysql_fetch_assoc($RCTinhthanh));
+} while ($row_RCTinhthanh = mysqli_fetch_assoc($RCTinhthanh));
 ?>
       </select></td>
     </tr>
@@ -317,5 +317,5 @@ do {
 </body>
 </html>
 <?php
-mysql_free_result($RCPhongban);
+mysqli_free_result($RCPhongban);
 ?>

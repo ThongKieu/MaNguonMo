@@ -8,7 +8,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
     $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
   }
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+  $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($theValue) : mysqli_escape_string($theValue);
 
   switch ($theType) {
     case "text":
@@ -39,7 +39,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
     $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
   }
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+  $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($theValue) : mysqli_escape_string($theValue);
 
   switch ($theType) {
     case "text":
@@ -63,47 +63,47 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 }
 }
 
-mysql_select_db($database_Myconnection, $Myconnection);
+mysqli_select_db($database_Myconnection, $Myconnection);
 $query_RCtlb_nhanvien = "SELECT * FROM tlb_nhanvien where ma_nhan_vien= '$ma_nv'";
-$RCtlb_nhanvien = mysql_query($query_RCtlb_nhanvien, $Myconnection) or die(mysql_error());
-$row_RCtlb_nhanvien = mysql_fetch_assoc($RCtlb_nhanvien);
-$totalRows_RCtlb_nhanvien = mysql_num_rows($RCtlb_nhanvien);
+$RCtlb_nhanvien = mysqli_query($query_RCtlb_nhanvien, $Myconnection) or die(mysqli_error());
+$row_RCtlb_nhanvien = mysqli_fetch_assoc($RCtlb_nhanvien);
+$totalRows_RCtlb_nhanvien = mysqli_num_rows($RCtlb_nhanvien);
 
-mysql_select_db($database_Myconnection, $Myconnection);
+mysqli_select_db($database_Myconnection, $Myconnection);
 $query_RCTTcongviec = "SELECT * FROM tlb_phongban inner join (tlb_ctcongviec inner join (tlb_chucvu inner join (tlb_hocvan inner join (tlb_bangcap inner join (tlb_ngoaingu inner join (tlb_tinhoc inner join (tlb_dantoc inner join (tlb_quoctich inner join (tlb_tongiao inner join (tlb_tinhthanh inner join tlb_congviec on tlb_tinhthanh.tinh_thanh_id = tlb_congviec.tinh_thanh_id) on tlb_tongiao.ton_giao_id = tlb_congviec.ton_giao_id) on tlb_quoctich.quoc_tich_id = tlb_congviec.quoc_tich_id) on tlb_dantoc.dan_toc_id = tlb_congviec.dan_toc_id) on tlb_tinhoc.tin_hoc_id = tlb_congviec.tin_hoc_id) on tlb_ngoaingu.ngoai_ngu_id = tlb_congviec.ngoai_ngu_id) on tlb_bangcap.bang_cap_id =tlb_congviec.bang_cap_id) on tlb_hocvan.hoc_van_id=tlb_congviec.hoc_van_id) on tlb_chucvu.chuc_vu_id=tlb_congviec.chuc_vu_id) on tlb_ctcongviec.cong_viec_id=tlb_congviec.cong_viec_id) on tlb_phongban.phong_ban_id=tlb_congviec.phong_ban_id where tlb_congviec.ma_nhan_vien= '$ma_nv'";
-$RCTTcongviec = mysql_query($query_RCTTcongviec, $Myconnection) or die(mysql_error());
-$row_RCTTcongviec = mysql_fetch_assoc($RCTTcongviec);
-$totalRows_RCTTcongviec = mysql_num_rows($RCTTcongviec);
+$RCTTcongviec = mysqli_query($query_RCTTcongviec, $Myconnection) or die(mysqli_error());
+$row_RCTTcongviec = mysqli_fetch_assoc($RCTTcongviec);
+$totalRows_RCTTcongviec = mysqli_num_rows($RCTTcongviec);
 
-mysql_select_db($database_Myconnection, $Myconnection);
+mysqli_select_db($database_Myconnection, $Myconnection);
 $query_RCQuanhe_GD = "SELECT * FROM tlb_quanhegiadinh where ma_nhan_vien= '$ma_nv'";
-$RCQuanhe_GD = mysql_query($query_RCQuanhe_GD, $Myconnection) or die(mysql_error());
-$row_RCQuanhe_GD = mysql_fetch_assoc($RCQuanhe_GD);
-$totalRows_RCQuanhe_GD = mysql_num_rows($RCQuanhe_GD);
+$RCQuanhe_GD = mysqli_query($query_RCQuanhe_GD, $Myconnection) or die(mysqli_error());
+$row_RCQuanhe_GD = mysqli_fetch_assoc($RCQuanhe_GD);
+$totalRows_RCQuanhe_GD = mysqli_num_rows($RCQuanhe_GD);
 
-mysql_select_db($database_Myconnection, $Myconnection);
+mysqli_select_db($database_Myconnection, $Myconnection);
 $query_RCBaohiem = "SELECT * FROM tlb_baohiem where ma_nhan_vien= '$ma_nv'";
-$RCBaohiem = mysql_query($query_RCBaohiem, $Myconnection) or die(mysql_error());
-$row_RCBaohiem = mysql_fetch_assoc($RCBaohiem);
-$totalRows_RCBaohiem = mysql_num_rows($RCBaohiem);
+$RCBaohiem = mysqli_query($query_RCBaohiem, $Myconnection) or die(mysqli_error());
+$row_RCBaohiem = mysqli_fetch_assoc($RCBaohiem);
+$totalRows_RCBaohiem = mysqli_num_rows($RCBaohiem);
 
-mysql_select_db($database_Myconnection, $Myconnection);
+mysqli_select_db($database_Myconnection, $Myconnection);
 $query_RCHopdong = "SELECT * FROM tlb_hopdong where ma_nhan_vien= '$ma_nv'";
-$RCHopdong = mysql_query($query_RCHopdong, $Myconnection) or die(mysql_error());
-$row_RCHopdong = mysql_fetch_assoc($RCHopdong);
-$totalRows_RCHopdong = mysql_num_rows($RCHopdong);
+$RCHopdong = mysqli_query($query_RCHopdong, $Myconnection) or die(mysqli_error());
+$row_RCHopdong = mysqli_fetch_assoc($RCHopdong);
+$totalRows_RCHopdong = mysqli_num_rows($RCHopdong);
 
-mysql_select_db($database_Myconnection, $Myconnection);
+mysqli_select_db($database_Myconnection, $Myconnection);
 $query_RCQuatring_CT = "SELECT * FROM tlb_quatrinhcongtac where ma_nhan_vien= '$ma_nv'";
-$RCQuatring_CT = mysql_query($query_RCQuatring_CT, $Myconnection) or die(mysql_error());
-$row_RCQuatring_CT = mysql_fetch_assoc($RCQuatring_CT);
-$totalRows_RCQuatring_CT = mysql_num_rows($RCQuatring_CT);
+$RCQuatring_CT = mysqli_query($query_RCQuatring_CT, $Myconnection) or die(mysqli_error());
+$row_RCQuatring_CT = mysqli_fetch_assoc($RCQuatring_CT);
+$totalRows_RCQuatring_CT = mysqli_num_rows($RCQuatring_CT);
 
-mysql_select_db($database_Myconnection, $Myconnection);
+mysqli_select_db($database_Myconnection, $Myconnection);
 $query_RCQuatrinh_luong = "SELECT * FROM tlb_quatrinhluong where ma_nhan_vien= '$ma_nv'";
-$RCQuatrinh_luong = mysql_query($query_RCQuatrinh_luong, $Myconnection) or die(mysql_error());
-$row_RCQuatrinh_luong = mysql_fetch_assoc($RCQuatrinh_luong);
-$totalRows_RCQuatrinh_luong = mysql_num_rows($RCQuatrinh_luong);
+$RCQuatrinh_luong = mysqli_query($query_RCQuatrinh_luong, $Myconnection) or die(mysqli_error());
+$row_RCQuatrinh_luong = mysqli_fetch_assoc($RCQuatrinh_luong);
+$totalRows_RCQuatrinh_luong = mysqli_num_rows($RCQuatrinh_luong);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -247,8 +247,8 @@ body,td,th {
     <tr>
       <td colspan="3" class="row5"><strong>* Ghi chú:</strong> <?php echo $row_RCQuanhe_GD['ghi_chu']; ?></td>
     </tr>
-    <?php } while ($row_RCQuanhe_GD = mysql_fetch_assoc($RCQuanhe_GD)); ?>
-    <?php mysql_free_result($RCQuanhe_GD); ?>
+    <?php } while ($row_RCQuanhe_GD = mysqli_fetch_assoc($RCQuanhe_GD)); ?>
+    <?php mysqli_free_result($RCQuanhe_GD); ?>
 <tr>
       <td align="left" colspan="3" class="row5"><h3>Bảo hiểm</h3></td>
   </tr>
@@ -282,7 +282,7 @@ body,td,th {
           <td class="row5" width="105"><?php echo $row_RCHopdong['loai_hop_dong']; ?></td>
           <td class="row5"><?php echo $row_RCHopdong['ghi_chu']; ?></td>
         </tr>
-        <?php } while ($row_RCHopdong = mysql_fetch_assoc($RCHopdong)); ?>
+        <?php } while ($row_RCHopdong = mysqli_fetch_assoc($RCHopdong)); ?>
     </table></td>
   </tr>
   <tr>
@@ -305,7 +305,7 @@ body,td,th {
           <td class="row5" width="146"><?php echo $row_RCQuatring_CT['cong_viec']; ?></td>
           <td class="row5"><?php echo $row_RCQuatring_CT['ghi_chu']; ?></td>
         </tr>
-        <?php } while ($row_RCQuatring_CT = mysql_fetch_assoc($RCQuatring_CT)); ?>
+        <?php } while ($row_RCQuatring_CT = mysqli_fetch_assoc($RCQuatring_CT)); ?>
     </table></td>
   </tr>
   <tr>
@@ -326,7 +326,7 @@ body,td,th {
           <td class="row5" width="100"><?php echo $row_RCQuatrinh_luong['muc_luong']; ?></td>
           <td class="row5"><?php echo $row_RCQuatrinh_luong['ghi_chu']; ?></td>
           </tr>
-        <?php } while ($row_RCHopdong = mysql_fetch_assoc($RCHopdong)); ?>
+        <?php } while ($row_RCHopdong = mysqli_fetch_assoc($RCHopdong)); ?>
     </table></td>
   </tr>
 </table>
@@ -334,16 +334,16 @@ body,td,th {
 </body>
 </html>
 <?php
-mysql_free_result($RCtlb_nhanvien);
+mysqli_free_result($RCtlb_nhanvien);
 
-mysql_free_result($RCTTcongviec);
+mysqli_free_result($RCTTcongviec);
 
-mysql_free_result($RCBaohiem);
+mysqli_free_result($RCBaohiem);
 
-mysql_free_result($RCHopdong);
+mysqli_free_result($RCHopdong);
 
-mysql_free_result($RCQuatring_CT);
+mysqli_free_result($RCQuatring_CT);
 
-mysql_free_result($RCQuatrinh_luong);
+mysqli_free_result($RCQuatrinh_luong);
 
 ?>

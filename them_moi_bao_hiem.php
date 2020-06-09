@@ -7,7 +7,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
     $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
   }
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+  $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($theValue) : mysqli_escape_string($theValue);
 
   switch ($theType) {
     case "text":
@@ -45,8 +45,8 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
                        GetSQLValueString($_POST['ngay_cap_bhyt'], "date"),
                        GetSQLValueString($_POST['noi_cap_bhyt'], "text"));
 
-  mysql_select_db($database_Myconnection, $Myconnection);
-  $Result1 = mysql_query($insertSQL, $Myconnection) or die(mysql_error());
+  mysqli_select_db($database_Myconnection, $Myconnection);
+  $Result1 = mysqli_query($insertSQL, $Myconnection) or die(mysqli_error());
 
   $insertGoTo = "them_moi_bao_hiem.php";
   if (isset($_SERVER['QUERY_STRING'])) {
@@ -55,11 +55,11 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
   }
 	sprintf("Location: %s", $insertGoTo);
 }
-mysql_select_db($database_Myconnection, $Myconnection);
+mysqli_select_db($database_Myconnection, $Myconnection);
 $query_RCBaohiem_TM = "SELECT * FROM tlb_baohiem where ma_nhan_vien = '$ma_nv'";
-$RCBaohiem_TM = mysql_query($query_RCBaohiem_TM, $Myconnection) or die(mysql_error());
-$row_RCBaohiem_TM = mysql_fetch_assoc($RCBaohiem_TM);
-$totalRows_RCBaohiem_TM = mysql_num_rows($RCBaohiem_TM);
+$RCBaohiem_TM = mysqli_query($query_RCBaohiem_TM, $Myconnection) or die(mysqli_error());
+$row_RCBaohiem_TM = mysqli_fetch_assoc($RCBaohiem_TM);
+$totalRows_RCBaohiem_TM = mysqli_num_rows($RCBaohiem_TM);
 if ($totalRows_RCBaohiem_TM <>0)
 	{
   	$url = "index.php?require=cap_nhat_bao_hiem.php&catID=$ma_nv&title=Cập nhật bảo hiểm";
@@ -152,5 +152,5 @@ if ($totalRows_RCBaohiem_TM <>0)
 </body>
 </html>
 <?php
-mysql_free_result($RCBaohiem_TM);
+mysqli_free_result($RCBaohiem_TM);
 ?>

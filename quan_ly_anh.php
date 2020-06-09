@@ -7,7 +7,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
     $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
   }
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+  $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($theValue) : mysqli_escape_string($theValue);
 
   switch ($theType) {
     case "text":
@@ -98,8 +98,8 @@ if (!$copied)
  {
  	echo "<h2>Tải ảnh thành công.</h2>";
 	$insertSQL = "INSERT INTO tlb_hinhanh (ten_anh) VALUES ('$image_name')";
-	mysql_select_db($database_Myconnection, $Myconnection);
-  	$Result1 = mysql_query($insertSQL, $Myconnection) or die(mysql_error());
+	mysqli_select_db($database_Myconnection, $Myconnection);
+  	$Result1 = mysqli_query($insertSQL, $Myconnection) or die(mysqli_error());
  }
  ?>
  <!--next comes the form, you must set the enctype to "multipart/frm-data" and use an input type "file" -->
@@ -112,10 +112,10 @@ if (!$copied)
  </table>
  </form>
  <?php
- mysql_select_db($database_Myconnection, $Myconnection);
+ mysqli_select_db($database_Myconnection, $Myconnection);
 $query_RCAnh_DS = "SELECT * FROM tlb_hinhanh";
-$RCAnh_DS = mysql_query($query_RCAnh_DS, $Myconnection) or die(mysql_error());
-$totalRows_RCAnh_DS = mysql_num_rows($RCAnh_DS);
+$RCAnh_DS = mysqli_query($query_RCAnh_DS, $Myconnection) or die(mysqli_error());
+$totalRows_RCAnh_DS = mysqli_num_rows($RCAnh_DS);
     echo "<table class='row2' align ='center' width='985'";
      echo	"<tr><td colspan='6'><h3>Danh sách ảnh </h3><br /> Vui lòng Copy tên ảnh Past vào Ô Hình ảnh </td></tr>";
  	$stt = 0;
@@ -136,6 +136,6 @@ $totalRows_RCAnh_DS = mysql_num_rows($RCAnh_DS);
 		{echo "</tr>";}
      } 
      echo "</table>";
-mysql_free_result($RCAnh_DS);
+mysqli_free_result($RCAnh_DS);
 ?>
  

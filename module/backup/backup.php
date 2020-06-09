@@ -52,7 +52,7 @@ if (!empty($_POST['login']) && isset($_POST['pass'])) {
 		exit;
 	}
 	else{
-		$error = '#' . mysql_errno() . ': ' . mysql_error();
+		$error = '#' . mysql_errno() . ': ' . mysqli_error();
 	}
 }
 elseif (!empty($_COOKIE['sxd'])) {
@@ -61,7 +61,7 @@ elseif (!empty($_COOKIE['sxd'])) {
 		$auth = 1;
 	}
 	else{
-		$error = '#' . mysql_errno() . ': ' . mysql_error();
+		$error = '#' . mysql_errno() . ': ' . mysqli_error();
 	}
 }
 
@@ -167,9 +167,9 @@ class dumper {
 		    exit;
 		}
 		echo tpl_l("&#272;ang k&#7871;t n&#7889;i c&#417; s&#7903; d&#7919; li&#7879;u.");
-		mysql_select_db($db) or trigger_error ("Unable to select database.<BR>" . mysql_error(), E_USER_ERROR);
+		mysqli_select_db($db) or trigger_error ("Unable to select database.<BR>" . mysqli_error(), E_USER_ERROR);
 		$tables = array();
-        $result = mysql_query("SHOW TABLES");
+        $result = mysqli_query("SHOW TABLES");
 		$all = 0;
         while($row = mysql_fetch_array($result)) {
 			$status = 0;
@@ -197,13 +197,13 @@ class dumper {
 
 		$tabs = count($tables);
 		// Determination of tables
-		$result = mysql_query("SHOW TABLE STATUS");
+		$result = mysqli_query("SHOW TABLE STATUS");
 		$tabinfo = array();
 		$tab_charset = array();
 		$tab_type = array();
 		$tabinfo[0] = 0;
 		$info = '';
-		while($item = mysql_fetch_assoc($result)){
+		while($item = mysqli_fetch_assoc($result)){
 			//print_r($item);
 			if(in_array($item['Name'], $tables)) {
 				$item['Rows'] = empty($item['Rows']) ? 0 : $item['Rows'];
@@ -226,10 +226,10 @@ class dumper {
 		$this->fn_write($fp, "#SKD101|{$db}|{$tabs}|" . date("Y.m.d H:i:s") ."|{$info}\n\n");
 		$t=0;
 		echo tpl_l(str_repeat("-", 60));
-		$result = mysql_query("SET SQL_QUOTE_SHOW_CREATE = 1");
+		$result = mysqli_query("SET SQL_QUOTE_SHOW_CREATE = 1");
 		// Encoding connections by default
 		if ($this->mysql_version > 40101 && CHARSET != 'auto') {
-			mysql_query("SET NAMES '" . CHARSET . "'") or trigger_error ("Cannot set the encoding for the connection.<BR>" . mysql_error(), E_USER_ERROR);
+			mysqli_query("SET NAMES '" . CHARSET . "'") or trigger_error ("Cannot set the encoding for the connection.<BR>" . mysqli_error(), E_USER_ERROR);
 			$last_charset = CHARSET;
 		}
 		else{
@@ -239,7 +239,7 @@ class dumper {
 			// Bill encoding connecting the encoding tables
 			if ($this->mysql_version > 40101 && $tab_charset[$table] != $last_charset) {
 				if (CHARSET == 'auto') {
-					mysql_query("SET NAMES '" . $tab_charset[$table] . "'") or trigger_error ("Cannot set the encoding for the connection.<BR>" . mysql_error(), E_USER_ERROR);
+					mysqli_query("SET NAMES '" . $tab_charset[$table] . "'") or trigger_error ("Cannot set the encoding for the connection.<BR>" . mysqli_error(), E_USER_ERROR);
 					echo tpl_l("Using encoding `" . $tab_charset[$table] . "`.", C_WARNING);
 					$last_charset = $tab_charset[$table];
 				}
@@ -250,7 +250,7 @@ class dumper {
 			}
 			echo tpl_l("Processing Table`{$table}` [" . fn_int($tabinfo[$table]) . "].");
         	// Creating tables 
-			$result = mysql_query("SHOW CREATE TABLE `{$table}`");
+			$result = mysqli_query("SHOW CREATE TABLE `{$table}`");
         	$tab = mysql_fetch_array($result);
 			$tab = preg_replace('/(default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP|DEFAULT CHARSET=\w+|COLLATE=\w+|character set \w+|collate \w+)/i', '/*!40101 \\1 */', $tab);
         	$this->fn_write($fp, "DROP TABLE IF EXISTS `{$table}`;\n{$tab[1]};\n\n");
@@ -260,7 +260,7 @@ class dumper {
 			}
         	// Oprededelyaem types of columns
             $NumericColumn = array();
-            $result = mysql_query("SHOW COLUMNS FROM `{$table}`");
+            $result = mysqli_query("SHOW COLUMNS FROM `{$table}`");
             $field = 0;
             while($col = mysql_fetch_row($result)) {
             	$NumericColumn[$field++] = preg_match("/^(\w*int|year)/", $col[1]) ? 1 : 0;
@@ -275,7 +275,7 @@ class dumper {
 			}
 			$i = 0;
 			$this->fn_write($fp, "INSERT INTO `{$table}` VALUES");
-            while(($result = mysql_query("SELECT * FROM `{$table}` LIMIT {$from}, {$limit}")) && ($total = mysql_num_rows($result))){
+            while(($result = mysqli_query("SELECT * FROM `{$table}` LIMIT {$from}, {$limit}")) && ($total = mysqli_num_rows($result))){
             		while($row = mysql_fetch_row($result)) {
                     	$i++;
     					$t++;
@@ -284,14 +284,14 @@ class dumper {
                     		if ($NumericColumn[$k])
                     		    $row[$k] = isset($row[$k]) ? $row[$k] : "NULL";
                     		else
-                    			$row[$k] = isset($row[$k]) ? "'" . mysql_escape_string($row[$k]) . "'" : "NULL";
+                    			$row[$k] = isset($row[$k]) ? "'" . mysqli_escape_string($row[$k]) . "'" : "NULL";
                     	}
 
     					$this->fn_write($fp, ($i == 1 ? "" : ",") . "\n(" . implode(", ", $row) . ")");
     					if ($i % $limit2 == 0)
     						echo tpl_s($i / $tabinfo[$table], $t / $tabinfo[0]);
                		}
-					mysql_free_result($result);
+					mysqli_free_result($result);
 					if ($total < $limit) {
 					    break;
 					}
@@ -337,7 +337,7 @@ class dumper {
 		    exit;
 		}
 		echo tpl_l("&#272;ang k&#7871;t n&#7889;i c&#417; s&#7903; d&#7919; li&#7879;u `{$db}`.");
-		mysql_select_db($db) or trigger_error ("Unable to select database. .<BR>" . mysql_error(), E_USER_ERROR);
+		mysqli_select_db($db) or trigger_error ("Unable to select database. .<BR>" . mysqli_error(), E_USER_ERROR);
 
 		// Definition file format
 		if(preg_match("/^(.+?)\.sql(\.(bz2|gz))?$/", $file, $matches)) {
@@ -376,7 +376,7 @@ class dumper {
 
 		// Setting coding connections
 		if ($this->mysql_version > 40101 && (CHARSET != 'auto' || $this->forced_charset)) { // Encryption by default if the dump was not encoded
-			mysql_query("SET NAMES '" . $this->restore_charset . "'") or trigger_error ("Cannot set the encoding for the connection.<BR>" . mysql_error(), E_USER_ERROR);
+			mysqli_query("SET NAMES '" . $this->restore_charset . "'") or trigger_error ("Cannot set the encoding for the connection.<BR>" . mysqli_error(), E_USER_ERROR);
 			echo tpl_l("Using encoding `" . $this->restore_charset . "`.", C_WARNING);
 			$last_charset = $this->restore_charset;
 		}
@@ -447,7 +447,7 @@ class dumper {
 							if (preg_match("/(CHARACTER SET|CHARSET)[=\s]+(\w+)/i", $sql, $charset)) {
 								if (!$this->forced_charset && $charset[2] != $last_charset) {
 									if (CHARSET == 'auto') {
-										mysql_query("SET NAMES '" . $charset[2] . "'") or trigger_error ("Cannot set the encoding for the connection.<BR>{$sql}<BR>" . mysql_error(), E_USER_ERROR);
+										mysqli_query("SET NAMES '" . $charset[2] . "'") or trigger_error ("Cannot set the encoding for the connection.<BR>{$sql}<BR>" . mysqli_error(), E_USER_ERROR);
 										$cache .= tpl_l("Using encoding `" . $charset[2] . "`.", C_WARNING);
 										$last_charset = $charset[2];
 									}
@@ -465,7 +465,7 @@ class dumper {
 							elseif(CHARSET == 'auto'){ // Run encoding table if it is not specified and installed auto encoding
 								$sql .= ' DEFAULT CHARSET=' . $this->restore_charset . $this->restore_collate;
 								if ($this->restore_charset != $last_charset) {
-									mysql_query("SET NAMES '" . $this->restore_charset . "'") or trigger_error ("Cannot set the encoding for the connection.<BR>{$sql}<BR>" . mysql_error(), E_USER_ERROR);
+									mysqli_query("SET NAMES '" . $this->restore_charset . "'") or trigger_error ("Cannot set the encoding for the connection.<BR>{$sql}<BR>" . mysqli_error(), E_USER_ERROR);
 									$cache .= tpl_l("Using encoding `" . $this->restore_charset . "`.", C_WARNING);
 									$last_charset = $this->restore_charset;
 								}
@@ -474,7 +474,7 @@ class dumper {
 						if ($last_showed != $table) {$cache .= tpl_l("Table `{$table}`."); $last_showed = $table;}
 					}
 					elseif($this->mysql_version > 40101 && empty($last_charset)) { // Install encoding for the absence CREATE TABLE
-						mysql_query("SET $this->restore_charset '" . $this->restore_charset . "'") or trigger_error ("Cannot set the encoding for the connection.<BR>{$sql}<BR>" . mysql_error(), E_USER_ERROR);
+						mysqli_query("SET $this->restore_charset '" . $this->restore_charset . "'") or trigger_error ("Cannot set the encoding for the connection.<BR>{$sql}<BR>" . mysqli_error(), E_USER_ERROR);
 						echo tpl_l("Using encoding `" . $this->restore_charset . "`.", C_WARNING);
 						$last_charset = $this->restore_charset;
 					}
@@ -487,7 +487,7 @@ class dumper {
             	}
     			if ($execute) {
             		$q++;
-            		mysql_query($sql) or trigger_error ("Bad request.<BR>" . mysql_error(), E_USER_ERROR);
+            		mysqli_query($sql) or trigger_error ("Bad request.<BR>" . mysqli_error(), E_USER_ERROR);
 					if (preg_match("/^insert/i", $sql)) {
             		    $aff_rows += mysql_affected_rows();
             		}
@@ -546,23 +546,23 @@ class dumper {
 		if (DBNAMES != '') {
 			$items = explode(',', trim(DBNAMES));
 			foreach($items AS $item){
-    			if (mysql_select_db($item)) {
-    				$tables = mysql_query("SHOW TABLES");
+    			if (mysqli_select_db($item)) {
+    				$tables = mysqli_query("SHOW TABLES");
     				if ($tables) {
-    	  			    $tabs = mysql_num_rows($tables);
+    	  			    $tabs = mysqli_num_rows($tables);
     	  				$dbs[$item] = "{$item} ({$tabs})";
     	  			}
     			}
 			}
 		}
 		else {
-    		$result = mysql_query("SHOW DATABASES");
+    		$result = mysqli_query("SHOW DATABASES");
     		$dbs = array();
     		while($item = mysql_fetch_array($result)){
-    			if (mysql_select_db($item[0])) {
-    				$tables = mysql_query("SHOW TABLES");
+    			if (mysqli_select_db($item[0])) {
+    				$tables = mysqli_query("SHOW TABLES");
     				if ($tables) {
-    	  			    $tabs = mysql_num_rows($tables);
+    	  			    $tabs = mysqli_num_rows($tables);
     	  				$dbs[$item[0]] = "{$item[0]} ({$tabs})";
     	  			}
     			}

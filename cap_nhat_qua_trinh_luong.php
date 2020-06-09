@@ -9,7 +9,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
     $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
   }
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+  $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($theValue) : mysqli_escape_string($theValue);
 
   switch ($theType) {
     case "text":
@@ -47,14 +47,14 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
                        GetSQLValueString($_POST['ghi_chu'], "text"),
                        GetSQLValueString($_POST['id'], "int"));
 
-  mysql_select_db($database_Myconnection, $Myconnection);
-  $Result1 = mysql_query($updateSQL, $Myconnection) or die(mysql_error());
+  mysqli_select_db($database_Myconnection, $Myconnection);
+  $Result1 = mysqli_query($updateSQL, $Myconnection) or die(mysqli_error());
 }
-mysql_select_db($database_Myconnection, $Myconnection);
+mysqli_select_db($database_Myconnection, $Myconnection);
 $query_RCQTluong_DS = "SELECT * FROM tlb_quatrinhluong where ma_nhan_vien = '$ma_nv'";
-$RCQTluong_DS = mysql_query($query_RCQTluong_DS, $Myconnection) or die(mysql_error());
-$row_RCQTluong_DS = mysql_fetch_assoc($RCQTluong_DS);
-$totalRows_RCQTluong_DS = mysql_num_rows($RCQTluong_DS);
+$RCQTluong_DS = mysqli_query($query_RCQTluong_DS, $Myconnection) or die(mysqli_error());
+$row_RCQTluong_DS = mysqli_fetch_assoc($RCQTluong_DS);
+$totalRows_RCQTluong_DS = mysqli_num_rows($RCQTluong_DS);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -89,18 +89,18 @@ $totalRows_RCQTluong_DS = mysql_num_rows($RCQTluong_DS);
           <td width="35" class="row1"><a href="index.php?require=cap_nhat_qua_trinh_luong.php&catID=<?php echo $ma_nv; ?>&tomID=<?php echo $row_RCQTluong_DS['id']; ?>&title=Cập nhật quá trình lương">Sửa</a></td>
           <td width="35" class="row1">Xoá</td>
         </tr>
-        <?php } while ($row_RCQTluong_DS = mysql_fetch_assoc($RCQTluong_DS)); ?>
+        <?php } while ($row_RCQTluong_DS = mysqli_fetch_assoc($RCQTluong_DS)); ?>
     </table></td>
     <?php
-	mysql_free_result($RCQTluong_DS);
+	mysqli_free_result($RCQTluong_DS);
 	?>
     <td class="row2" width="286" valign="top">
     <?php
-	mysql_select_db($database_Myconnection, $Myconnection);
+	mysqli_select_db($database_Myconnection, $Myconnection);
 		$query_RCQTluong_CN = "SELECT * FROM tlb_quatrinhluong where id = $id";
-		$RCQTluong_CN = mysql_query($query_RCQTluong_CN, $Myconnection) or die(mysql_error());
-		$row_RCQTluong_CN = mysql_fetch_assoc($RCQTluong_CN);
-		$totalRows_RCQTluong_CN = mysql_num_rows($RCQTluong_CN);	
+		$RCQTluong_CN = mysqli_query($query_RCQTluong_CN, $Myconnection) or die(mysqli_error());
+		$row_RCQTluong_CN = mysqli_fetch_assoc($RCQTluong_CN);
+		$totalRows_RCQTluong_CN = mysqli_num_rows($RCQTluong_CN);	
 	?>
       <form action="<?php echo $editFormAction; ?>" method="post" name="form1" id="form1">
         <table width="286" align="center" cellpadding="1" cellspacing="1">
@@ -142,5 +142,5 @@ $totalRows_RCQTluong_DS = mysql_num_rows($RCQTluong_DS);
 </body>
 </html>
 <?php
-mysql_free_result($RCQTluong_CN);
+mysqli_free_result($RCQTluong_CN);
 ?>
