@@ -62,8 +62,8 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
     GetSQLValueString($_POST['tinh_thanh_id'], "text")
   );
 
-  mysqli_select_db($database_Myconnection, $Myconnection);
-  $Result1 = mysqli_query($insertSQL, $Myconnection); // or die(mysqli_error();
+  mysqli_select_db($Myconnection, $database_Myconnection);
+  $Result1 = mysqli_query($Myconnection, $insertSQLd); // or die(mysqli_error();
 
   $insertGoTo = "danh_sach_nhan_vien.php";
   if (isset($_SERVER['QUERY_STRING'])) {
@@ -73,59 +73,59 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
   sprintf("Location: %s", $insertGoTo);
 }
 //Lấy nhân viên cần nhập Công việc
-mysqli_select_db($database_Myconnection, $Myconnection);
+mysqli_select_db($Myconnection, $database_Myconnection);
 $query_RCcapnhat_nhanvien = "SELECT * FROM tlb_nhanvien where ma_nhan_vien = '$ma_nv'";
-$RCcapnhat_nhanvien = mysqli_query($query_RCcapnhat_nhanvien, $Myconnection); // or die(mysqli_error();
+$RCcapnhat_nhanvien = mysqli_query($Myconnection, $query_RCcapnhat_nhanviend); // or die(mysqli_error();
 $row_RCcapnhat_nhanvien = mysqli_fetch_assoc($RCcapnhat_nhanvien);
 $totalRows_RCcapnhat_nhanvien = mysqli_num_rows($RCcapnhat_nhanvien);
 //lay danh sach phong ban cap nhat
 $query_RCphongban = "SELECT * FROM tlb_phongban";
-$RCphongban = mysqli_query($query_RCphongban, $Myconnection); // or die(mysqli_error();
+$RCphongban = mysqli_query($Myconnection, $query_RCphongband); // or die(mysqli_error();
 $row_RCphongban = mysqli_fetch_assoc($RCphongban);
 $totalRows_RCphongban = mysqli_num_rows($RCphongban);
 //lay danh sach cong viec khi cap nhat
 $query_RCctcongviec = "SELECT * FROM tlb_ctcongviec";
-$RCctcongviec = mysqli_query($query_RCctcongviec, $Myconnection); // or die(mysqli_error();
+$RCctcongviec = mysqli_query($Myconnection, $query_RCctcongviecd); // or die(mysqli_error();
 $row_RCctcongviec = mysqli_fetch_assoc($RCctcongviec);
 $totalRows_RCctcongviec = mysqli_num_rows($RCctcongviec);
 //lay danh sach Hoc van
 $query_RCHocvan = "SELECT * FROM tlb_hocvan";
-$RCHocvan = mysqli_query($query_RCHocvan, $Myconnection); // or die(mysqli_error();
+$RCHocvan = mysqli_query($Myconnection, $query_RCHocvand); // or die(mysqli_error();
 $row_RCHocvan = mysqli_fetch_assoc($RCHocvan);
 $totalRows_RCHocvan = mysqli_num_rows($RCHocvan);
 // lay danh sach bang cap
 $query_RCBangcap = "SELECT * FROM tlb_bangcap";
-$RCBangcap = mysqli_query($query_RCBangcap, $Myconnection); // or die(mysqli_error();
+$RCBangcap = mysqli_query($Myconnection, $query_RCBangcapd); // or die(mysqli_error();
 $row_RCBangcap = mysqli_fetch_assoc($RCBangcap);
 $totalRows_RCBangcap = mysqli_num_rows($RCBangcap);
 //lay danh sach ngoai ngu
 $query_RCNgoaingu = "SELECT * FROM tlb_ngoaingu";
-$RCNgoaingu = mysqli_query($query_RCNgoaingu, $Myconnection); // or die(mysqli_error();
+$RCNgoaingu = mysqli_query($Myconnection, $query_RCNgoaingud); // or die(mysqli_error();
 $row_RCNgoaingu = mysqli_fetch_assoc($RCNgoaingu);
 $totalRows_RCNgoaingu = mysqli_num_rows($RCNgoaingu);
 //lay danh sach tin hoc
 $query_RCTinhoc = "SELECT * FROM tlb_tinhoc";
-$RCTinhoc = mysqli_query($query_RCTinhoc, $Myconnection); // or die(mysqli_error();
+$RCTinhoc = mysqli_query($Myconnection, $query_RCTinhocd); // or die(mysqli_error();
 $row_RCTinhoc = mysqli_fetch_assoc($RCTinhoc);
 $totalRows_RCTinhoc = mysqli_num_rows($RCTinhoc);
 //lay danh sach dan toc
 $query_RCDantoc = "SELECT * FROM tlb_dantoc";
-$RCDantoc = mysqli_query($query_RCDantoc, $Myconnection); // or die(mysqli_error();
+$RCDantoc = mysqli_query($Myconnection, $query_RCDantocd); // or die(mysqli_error();
 $row_RCDantoc = mysqli_fetch_assoc($RCDantoc);
 $totalRows_RCDantoc = mysqli_num_rows($RCDantoc);
 //Lay danh sach quoc tich
 $query_RCQuoctich = "SELECT * FROM tlb_quoctich";
-$RCQuoctich = mysqli_query($query_RCQuoctich, $Myconnection); // or die(mysqli_error();
+$RCQuoctich = mysqli_query($Myconnection, $query_RCQuoctichd); // or die(mysqli_error();
 $row_RCQuoctich = mysqli_fetch_assoc($RCQuoctich);
 $totalRows_RCQuoctich = mysqli_num_rows($RCQuoctich);
 //Lay danh sach ton giao
 $query_RCTongiao = "SELECT * FROM tlb_tongiao";
-$RCTongiao = mysqli_query($query_RCTongiao, $Myconnection); // or die(mysqli_error();
+$RCTongiao = mysqli_query($Myconnection, $query_RCTongiaod); // or die(mysqli_error();
 $row_RCTongiao = mysqli_fetch_assoc($RCTongiao);
 $totalRows_RCTongiao = mysqli_num_rows($RCTongiao);
 //Lay danh sach tinh thanh
 $query_RCTinhthanh = "SELECT * FROM tlb_tinhthanh";
-$RCTinhthanh = mysqli_query($query_RCTinhthanh, $Myconnection); // or die(mysqli_error();
+$RCTinhthanh = mysqli_query($Myconnection, $query_RCTinhthanhd); // or die(mysqli_error();
 $row_RCTinhthanh = mysqli_fetch_assoc($RCTinhthanh);
 $totalRows_RCTinhthanh = mysqli_num_rows($RCTinhthanh);
 ?>

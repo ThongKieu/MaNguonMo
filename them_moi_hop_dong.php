@@ -46,8 +46,8 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
                        GetSQLValueString($_POST['loai_hop_dong'], "int"),
                        GetSQLValueString($_POST['ghi_chu'], "text"));
 
-  mysqli_select_db($database_Myconnection, $Myconnection);
-  $Result1 = mysqli_query($insertSQL, $Myconnection); // or die(mysqli_error();
+  mysqli_select_db($Myconnection, $database_Myconnection);
+  $Result1 = mysqli_query($Myconnection, $insertSQL); // or die(mysqli_error();
 
   $insertGoTo = "them_moi_hop_dong.php";
   if (isset($_SERVER['QUERY_STRING'])) {
@@ -57,9 +57,9 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
   sprintf("Location: %s", $insertGoTo);
 }
 
-mysqli_select_db($database_Myconnection, $Myconnection);
+mysqli_select_db($Myconnection, $database_Myconnection);
 $query_RCHopdong_TM = "SELECT * FROM tlb_hopdong where ma_nhan_vien = '$ma_nv'";
-$RCHopdong_TM = mysqli_query($query_RCHopdong_TM, $Myconnection); // or die(mysqli_error();
+$RCHopdong_TM = mysqli_query($Myconnection, $query_RCHopdong_TM); // or die(mysqli_error();
 $row_RCHopdong_TM = mysqli_fetch_assoc($RCHopdong_TM);
 $totalRows_RCHopdong_TM = mysqli_num_rows($RCHopdong_TM);
 ?>

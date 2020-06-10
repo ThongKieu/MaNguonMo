@@ -68,8 +68,8 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
 					   GetSQLValueString($_POST['nghi_viec'], "int"),
                        GetSQLValueString($_POST['ma_nhan_vien'], "text"));
 
-  mysqli_select_db($database_Myconnection, $Myconnection);
-  $Result1 = mysqli_query($updateSQL, $Myconnection); // or die(mysqli_error();
+  mysqli_select_db($Myconnection, $database_Myconnection);
+  $Result1 = mysqli_query($Myconnection, $updateSQL); // or die(mysqli_error();
 
   $updateGoTo = "danh_sach_nhan_vien.php";
   if (isset($_SERVER['QUERY_STRING'])) {
@@ -79,9 +79,9 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
   location($$updateGoTo);
 }
 
-mysqli_select_db($database_Myconnection, $Myconnection);
+mysqli_select_db($Myconnection, $database_Myconnection);
 $query_RCcapnhat_nhanvien = "SELECT * FROM tlb_nhanvien where ma_nhan_vien = '$ma_nv'";
-$RCcapnhat_nhanvien = mysqli_query($query_RCcapnhat_nhanvien, $Myconnection); // or die(mysqli_error();
+$RCcapnhat_nhanvien = mysqli_query($Myconnection, $query_RCcapnhat_nhanvien); // or die(mysqli_error();
 $row_RCcapnhat_nhanvien = mysqli_fetch_assoc($RCcapnhat_nhanvien);
 $totalRows_RCcapnhat_nhanvien = mysqli_num_rows($RCcapnhat_nhanvien);
 ?>

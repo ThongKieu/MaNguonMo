@@ -11,8 +11,8 @@ if ($action=="del")
 	$ma_column = $column . "_id";
 	$deleteSQL = "DELETE FROM $table WHERE $ma_column='$ma_nv'";                     
 	
-	  mysqli_select_db($database_Myconnection, $Myconnection);
-	  $Result1 = mysqli_query($deleteSQL, $Myconnection); // or die(mysqli_error();
+	  mysqli_select_db($Myconnection, $database_Myconnection);
+	  $Result1 = mysqli_query($Myconnection, $deleteSQL); // or die(mysqli_error();
 	
 	  $deleteGoTo = "them_danh_muc.php";
 	  if (isset($_SERVER['QUERY_STRING'])) {
@@ -62,8 +62,8 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
                        GetSQLValueString($_POST['1'], "text"),
                        GetSQLValueString($_POST['2'], "text"));
 
-  mysqli_select_db($database_Myconnection, $Myconnection);
-  $Result1 = mysqli_query($insertSQL, $Myconnection); // or die(mysqli_error();
+  mysqli_select_db($Myconnection, $database_Myconnection);
+  $Result1 = mysqli_query($Myconnection, $insertSQL); // or die(mysqli_error();
 
   $insertGoTo = "them_danh_muc.php";
   if (isset($_SERVER['QUERY_STRING'])) {
@@ -109,9 +109,9 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
         <th width="35">&nbsp;</th>
       </tr>
       <?php 
-	  	//mysqli_select_db($database_Myconnection, $Myconnection);
+	  	//mysqli_select_db($Myconnection, $database_Myconnection);
 		$query_RCDanhmuc_TM = "SELECT * FROM $table";
-		$RCDanhmuc_TM = mysqli_query($query_RCDanhmuc_TM, $Myconnection); // or die(mysqli_error();
+		$RCDanhmuc_TM = mysqli_query($Myconnection, $query_RCDanhmuc_TM); // or die(mysqli_error();
 		//$row_RCDanhmuc_TM = mysqli_fetch_assoc($RCDanhmuc_TM);
 		$totalRows_RCDanhmuc_TM = mysqli_num_rows($RCDanhmuc_TM);
 	  ?>

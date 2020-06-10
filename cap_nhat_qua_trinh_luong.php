@@ -47,12 +47,12 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
                        GetSQLValueString($_POST['ghi_chu'], "text"),
                        GetSQLValueString($_POST['id'], "int"));
 
-  mysqli_select_db($database_Myconnection, $Myconnection);
-  $Result1 = mysqli_query($updateSQL, $Myconnection); // or die(mysqli_error();
+  mysqli_select_db($Myconnection, $database_Myconnection);
+  $Result1 = mysqli_query($Myconnection, $updateSQL); // or die(mysqli_error();
 }
-mysqli_select_db($database_Myconnection, $Myconnection);
+mysqli_select_db($Myconnection, $database_Myconnection);
 $query_RCQTluong_DS = "SELECT * FROM tlb_quatrinhluong where ma_nhan_vien = '$ma_nv'";
-$RCQTluong_DS = mysqli_query($query_RCQTluong_DS, $Myconnection); // or die(mysqli_error();
+$RCQTluong_DS = mysqli_query($Myconnection, $query_RCQTluong_DS); // or die(mysqli_error();
 $row_RCQTluong_DS = mysqli_fetch_assoc($RCQTluong_DS);
 $totalRows_RCQTluong_DS = mysqli_num_rows($RCQTluong_DS);
 ?>
@@ -96,9 +96,9 @@ $totalRows_RCQTluong_DS = mysqli_num_rows($RCQTluong_DS);
 	?>
     <td class="row2" width="286" valign="top">
     <?php
-	mysqli_select_db($database_Myconnection, $Myconnection);
+	mysqli_select_db($Myconnection, $database_Myconnection);
 		$query_RCQTluong_CN = "SELECT * FROM tlb_quatrinhluong where id = $id";
-		$RCQTluong_CN = mysqli_query($query_RCQTluong_CN, $Myconnection); // or die(mysqli_error();
+		$RCQTluong_CN = mysqli_query($Myconnection, $query_RCQTluong_CN); // or die(mysqli_error();
 		$row_RCQTluong_CN = mysqli_fetch_assoc($RCQTluong_CN);
 		$totalRows_RCQTluong_CN = mysqli_num_rows($RCQTluong_CN);	
 	?>

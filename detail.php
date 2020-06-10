@@ -35,8 +35,8 @@ if ((isset($_GET['bang_cap_id'])) && ($_GET['bang_cap_id'] != "")) {
   $deleteSQL = sprintf("DELETE FROM tlb_bangcap WHERE bang_cap_id=%s",
                        GetSQLValueString($_GET['bang_cap_id'], "text"));
 
-  mysqli_select_db($database_Myconnection, $Myconnection);
-  $Result1 = mysqli_query($deleteSQL, $Myconnection); // or die(mysqli_error();
+  mysqli_select_db($Myconnection, $database_Myconnection);
+  $Result1 = mysqli_query($Myconnection, $deleteSQL); // or die(mysqli_error();
 
   $deleteGoTo = "them_danh_muc.php";
   if (isset($_SERVER['QUERY_STRING'])) {
