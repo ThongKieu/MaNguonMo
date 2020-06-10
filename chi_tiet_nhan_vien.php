@@ -8,7 +8,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
     $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
   }
 
-  $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($theValue) : mysqli_escape_string($theValue);
+  // $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($theValue) : mysqli_escape_string($theValue);
 
   switch ($theType) {
     case "text":
@@ -39,7 +39,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
     $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
   }
 
-  $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($theValue) : mysqli_escape_string($theValue);
+  // $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($theValue) : mysqli_escape_string($theValue);
 
   switch ($theType) {
     case "text":
@@ -65,43 +65,43 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 
 mysqli_select_db($database_Myconnection, $Myconnection);
 $query_RCtlb_nhanvien = "SELECT * FROM tlb_nhanvien where ma_nhan_vien= '$ma_nv'";
-$RCtlb_nhanvien = mysqli_query($query_RCtlb_nhanvien, $Myconnection) or die(mysqli_error());
+$RCtlb_nhanvien = mysqli_query($query_RCtlb_nhanvien, $Myconnection); // or die(mysqli_error();
 $row_RCtlb_nhanvien = mysqli_fetch_assoc($RCtlb_nhanvien);
 $totalRows_RCtlb_nhanvien = mysqli_num_rows($RCtlb_nhanvien);
 
 mysqli_select_db($database_Myconnection, $Myconnection);
 $query_RCTTcongviec = "SELECT * FROM tlb_phongban inner join (tlb_ctcongviec inner join (tlb_chucvu inner join (tlb_hocvan inner join (tlb_bangcap inner join (tlb_ngoaingu inner join (tlb_tinhoc inner join (tlb_dantoc inner join (tlb_quoctich inner join (tlb_tongiao inner join (tlb_tinhthanh inner join tlb_congviec on tlb_tinhthanh.tinh_thanh_id = tlb_congviec.tinh_thanh_id) on tlb_tongiao.ton_giao_id = tlb_congviec.ton_giao_id) on tlb_quoctich.quoc_tich_id = tlb_congviec.quoc_tich_id) on tlb_dantoc.dan_toc_id = tlb_congviec.dan_toc_id) on tlb_tinhoc.tin_hoc_id = tlb_congviec.tin_hoc_id) on tlb_ngoaingu.ngoai_ngu_id = tlb_congviec.ngoai_ngu_id) on tlb_bangcap.bang_cap_id =tlb_congviec.bang_cap_id) on tlb_hocvan.hoc_van_id=tlb_congviec.hoc_van_id) on tlb_chucvu.chuc_vu_id=tlb_congviec.chuc_vu_id) on tlb_ctcongviec.cong_viec_id=tlb_congviec.cong_viec_id) on tlb_phongban.phong_ban_id=tlb_congviec.phong_ban_id where tlb_congviec.ma_nhan_vien= '$ma_nv'";
-$RCTTcongviec = mysqli_query($query_RCTTcongviec, $Myconnection) or die(mysqli_error());
+$RCTTcongviec = mysqli_query($query_RCTTcongviec, $Myconnection); // or die(mysqli_error();
 $row_RCTTcongviec = mysqli_fetch_assoc($RCTTcongviec);
 $totalRows_RCTTcongviec = mysqli_num_rows($RCTTcongviec);
 
 mysqli_select_db($database_Myconnection, $Myconnection);
 $query_RCQuanhe_GD = "SELECT * FROM tlb_quanhegiadinh where ma_nhan_vien= '$ma_nv'";
-$RCQuanhe_GD = mysqli_query($query_RCQuanhe_GD, $Myconnection) or die(mysqli_error());
+$RCQuanhe_GD = mysqli_query($query_RCQuanhe_GD, $Myconnection); // or die(mysqli_error();
 $row_RCQuanhe_GD = mysqli_fetch_assoc($RCQuanhe_GD);
 $totalRows_RCQuanhe_GD = mysqli_num_rows($RCQuanhe_GD);
 
 mysqli_select_db($database_Myconnection, $Myconnection);
 $query_RCBaohiem = "SELECT * FROM tlb_baohiem where ma_nhan_vien= '$ma_nv'";
-$RCBaohiem = mysqli_query($query_RCBaohiem, $Myconnection) or die(mysqli_error());
+$RCBaohiem = mysqli_query($query_RCBaohiem, $Myconnection); // or die(mysqli_error();
 $row_RCBaohiem = mysqli_fetch_assoc($RCBaohiem);
 $totalRows_RCBaohiem = mysqli_num_rows($RCBaohiem);
 
 mysqli_select_db($database_Myconnection, $Myconnection);
 $query_RCHopdong = "SELECT * FROM tlb_hopdong where ma_nhan_vien= '$ma_nv'";
-$RCHopdong = mysqli_query($query_RCHopdong, $Myconnection) or die(mysqli_error());
+$RCHopdong = mysqli_query($query_RCHopdong, $Myconnection); // or die(mysqli_error();
 $row_RCHopdong = mysqli_fetch_assoc($RCHopdong);
 $totalRows_RCHopdong = mysqli_num_rows($RCHopdong);
 
 mysqli_select_db($database_Myconnection, $Myconnection);
 $query_RCQuatring_CT = "SELECT * FROM tlb_quatrinhcongtac where ma_nhan_vien= '$ma_nv'";
-$RCQuatring_CT = mysqli_query($query_RCQuatring_CT, $Myconnection) or die(mysqli_error());
+$RCQuatring_CT = mysqli_query($query_RCQuatring_CT, $Myconnection); // or die(mysqli_error();
 $row_RCQuatring_CT = mysqli_fetch_assoc($RCQuatring_CT);
 $totalRows_RCQuatring_CT = mysqli_num_rows($RCQuatring_CT);
 
 mysqli_select_db($database_Myconnection, $Myconnection);
 $query_RCQuatrinh_luong = "SELECT * FROM tlb_quatrinhluong where ma_nhan_vien= '$ma_nv'";
-$RCQuatrinh_luong = mysqli_query($query_RCQuatrinh_luong, $Myconnection) or die(mysqli_error());
+$RCQuatrinh_luong = mysqli_query($query_RCQuatrinh_luong, $Myconnection); // or die(mysqli_error();
 $row_RCQuatrinh_luong = mysqli_fetch_assoc($RCQuatrinh_luong);
 $totalRows_RCQuatrinh_luong = mysqli_num_rows($RCQuatrinh_luong);
 ?>

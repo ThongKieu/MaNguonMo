@@ -6,9 +6,9 @@ $submit = get_param('submit');
 if ($submit <> "") {
 	$ten_dang_nhap = get_param('ten_dang_nhap');
 	$mat_khau = md5(get_param('mat_khau'));
-	mysqli_select_db($database_Myconnection, $Myconnection);
+	mysqli_select_db($Myconnection, $database_Myconnection);
 	$query_RCNguoidung = "SELECT * FROM tlb_nguoidung WHERE ten_dang_nhap = '" . $ten_dang_nhap . "' AND mat_khau = '" . $mat_khau . "'";
-	$RCNguoidung = mysqli_query($query_RCNguoidung, $Myconnection) or die(mysqli_error());
+	$RCNguoidung = mysqli_query($Myconnection, $query_RCNguoidung); //; // or die(mysqli_error();
 	$row_RCNguoidung = mysqli_fetch_assoc($RCNguoidung);
 	$totalRows_RCNguoidung = mysqli_num_rows($RCNguoidung);
 	mysqli_free_result($RCNguoidung);

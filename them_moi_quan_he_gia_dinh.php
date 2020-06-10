@@ -8,7 +8,7 @@ if ($action=="del")
 	$deleteSQL = "DELETE FROM tlb_quanhegiadinh WHERE id=$tomID";                     
 	
 	  mysqli_select_db($database_Myconnection, $Myconnection);
-	  $Result1 = mysqli_query($deleteSQL, $Myconnection) or die(mysqli_error());
+	  $Result1 = mysqli_query($deleteSQL, $Myconnection); // or die(mysqli_error();
 	
 	  $deleteGoTo = "them_danh_muc.php";
 	  if (isset($_SERVER['QUERY_STRING'])) {
@@ -67,7 +67,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
                        GetSQLValueString($_POST['ghi_chu'], "text"));
 
   mysqli_select_db($database_Myconnection, $Myconnection);
-  $Result1 = mysqli_query($insertSQL, $Myconnection) or die(mysqli_error());
+  $Result1 = mysqli_query($insertSQL, $Myconnection); // or die(mysqli_error();
 
   $insertGoTo = "cap_nhat_quan_he_gia_dinh.php";
   if (isset($_SERVER['QUERY_STRING'])) {
@@ -79,7 +79,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 
 mysqli_select_db($database_Myconnection, $Myconnection);
 $query_RCQuanHeGD = "SELECT * FROM tlb_quanhegiadinh where ma_nhan_vien = '$ma_nv'";
-$RCQuanHeGD = mysqli_query($query_RCQuanHeGD, $Myconnection) or die(mysqli_error());
+$RCQuanHeGD = mysqli_query($query_RCQuanHeGD, $Myconnection); // or die(mysqli_error();
 $row_RCQuanHeGD = mysqli_fetch_assoc($RCQuanHeGD);
 $totalRows_RCQuanHeGD = mysqli_num_rows($RCQuanHeGD);
 ?>

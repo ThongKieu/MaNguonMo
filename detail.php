@@ -7,7 +7,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
     $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
   }
 
-  $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($theValue) : mysqli_escape_string($theValue);
+  // $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($theValue) : mysqli_escape_string($theValue);
 
   switch ($theType) {
     case "text":
@@ -36,7 +36,7 @@ if ((isset($_GET['bang_cap_id'])) && ($_GET['bang_cap_id'] != "")) {
                        GetSQLValueString($_GET['bang_cap_id'], "text"));
 
   mysqli_select_db($database_Myconnection, $Myconnection);
-  $Result1 = mysqli_query($deleteSQL, $Myconnection) or die(mysqli_error());
+  $Result1 = mysqli_query($deleteSQL, $Myconnection); // or die(mysqli_error();
 
   $deleteGoTo = "them_danh_muc.php";
   if (isset($_SERVER['QUERY_STRING'])) {

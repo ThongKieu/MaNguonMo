@@ -8,7 +8,7 @@ if (!function_exists("GetSQLValueString")) {
       $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
     }
 
-    $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($theValue) : mysqli_escape_string($theValue);
+   // $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($theValue) : mysqli_escape_string($theValue);
 
     switch ($theType) {
       case "text":
@@ -50,7 +50,7 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
   );
 
   mysqli_select_db($database_Myconnection, $Myconnection);
-  $Result1 = mysqli_query($updateSQL, $Myconnection) or die(mysqli_error());
+  $Result1 = mysqli_query($updateSQL, $Myconnection);
 
   $updateGoTo = "them_moi_bao_hiem.php";
   if (isset($_SERVER['QUERY_STRING'])) {
@@ -62,7 +62,7 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
 
 mysqli_select_db($database_Myconnection, $Myconnection);
 $query_RCBaohiem_DS = "SELECT * FROM tlb_baohiem";
-$RCBaohiem_DS = mysqli_query($query_RCBaohiem_DS, $Myconnection) or die(mysqli_error());
+$RCBaohiem_DS = mysqli_query($query_RCBaohiem_DS, $Myconnection); // or die(mysqli_error();
 $row_RCBaohiem_DS = mysqli_fetch_assoc($RCBaohiem_DS);
 $totalRows_RCBaohiem_DS = mysqli_num_rows($RCBaohiem_DS);
 ?>
@@ -112,7 +112,7 @@ $totalRows_RCBaohiem_DS = mysqli_num_rows($RCBaohiem_DS);
   <?php
   mysqli_select_db($database_Myconnection, $Myconnection);
   $query_RCBaohiem_CN = "SELECT * FROM tlb_baohiem inner join tlb_nhanvien on tlb_baohiem.ma_nhan_vien = tlb_nhanvien.ma_nhan_vien where tlb_baohiem.ma_nhan_vien = '$ma_nv'";
-  $RCBaohiem_CN = mysqli_query($query_RCBaohiem_CN, $Myconnection) or die(mysqli_error());
+  $RCBaohiem_CN = mysqli_query($query_RCBaohiem_CN, $Myconnection); // or die(mysqli_error();
   $row_RCBaohiem_CN = mysqli_fetch_assoc($RCBaohiem_CN);
   $totalRows_RCBaohiem_CN = mysqli_num_rows($RCBaohiem_CN);
   ?>

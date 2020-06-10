@@ -99,7 +99,7 @@ if (!$copied)
  	echo "<h2>Tải ảnh thành công.</h2>";
 	$insertSQL = "INSERT INTO tlb_hinhanh (ten_anh) VALUES ('$image_name')";
 	mysqli_select_db($database_Myconnection, $Myconnection);
-  	$Result1 = mysqli_query($insertSQL, $Myconnection) or die(mysqli_error());
+  	$Result1 = mysqli_query($insertSQL, $Myconnection); // or die(mysqli_error();
  }
  ?>
  <!--next comes the form, you must set the enctype to "multipart/frm-data" and use an input type "file" -->
@@ -114,7 +114,7 @@ if (!$copied)
  <?php
  mysqli_select_db($database_Myconnection, $Myconnection);
 $query_RCAnh_DS = "SELECT * FROM tlb_hinhanh";
-$RCAnh_DS = mysqli_query($query_RCAnh_DS, $Myconnection) or die(mysqli_error());
+$RCAnh_DS = mysqli_query($query_RCAnh_DS, $Myconnection); // or die(mysqli_error();
 $totalRows_RCAnh_DS = mysqli_num_rows($RCAnh_DS);
     echo "<table class='row2' align ='center' width='985'";
      echo	"<tr><td colspan='6'><h3>Danh sách ảnh </h3><br /> Vui lòng Copy tên ảnh Past vào Ô Hình ảnh </td></tr>";
