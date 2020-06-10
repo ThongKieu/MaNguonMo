@@ -7,7 +7,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
     $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
   }
 
-  $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($theValue) : mysqli_escape_string($theValue);
+  // $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($theValue) : mysqli_escape_string($theValue);
 
   switch ($theType) {
     case "text":
@@ -69,7 +69,7 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
                        GetSQLValueString($_POST['ma_nhan_vien'], "text"));
 
   mysqli_select_db($database_Myconnection, $Myconnection);
-  $Result1 = mysqli_query($updateSQL, $Myconnection) or die(mysqli_error());
+  $Result1 = mysqli_query($updateSQL, $Myconnection); // or die(mysqli_error();
 
   $updateGoTo = "danh_sach_nhan_vien.php";
   if (isset($_SERVER['QUERY_STRING'])) {
@@ -81,7 +81,7 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
 
 mysqli_select_db($database_Myconnection, $Myconnection);
 $query_RCcapnhat_nhanvien = "SELECT * FROM tlb_nhanvien where ma_nhan_vien = '$ma_nv'";
-$RCcapnhat_nhanvien = mysqli_query($query_RCcapnhat_nhanvien, $Myconnection) or die(mysqli_error());
+$RCcapnhat_nhanvien = mysqli_query($query_RCcapnhat_nhanvien, $Myconnection); // or die(mysqli_error();
 $row_RCcapnhat_nhanvien = mysqli_fetch_assoc($RCcapnhat_nhanvien);
 $totalRows_RCcapnhat_nhanvien = mysqli_num_rows($RCcapnhat_nhanvien);
 ?>

@@ -9,7 +9,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
     $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
   }
 
-  $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($theValue) : mysqli_escape_string($theValue);
+  // $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($theValue) : mysqli_escape_string($theValue);
 
   switch ($theType) {
     case "text":
@@ -48,11 +48,11 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
                        GetSQLValueString($_POST['id'], "int"));
 
   mysqli_select_db($database_Myconnection, $Myconnection);
-  $Result1 = mysqli_query($updateSQL, $Myconnection) or die(mysqli_error());
+  $Result1 = mysqli_query($updateSQL, $Myconnection); // or die(mysqli_error();
 }
 mysqli_select_db($database_Myconnection, $Myconnection);
 $query_RCQTluong_DS = "SELECT * FROM tlb_quatrinhluong where ma_nhan_vien = '$ma_nv'";
-$RCQTluong_DS = mysqli_query($query_RCQTluong_DS, $Myconnection) or die(mysqli_error());
+$RCQTluong_DS = mysqli_query($query_RCQTluong_DS, $Myconnection); // or die(mysqli_error();
 $row_RCQTluong_DS = mysqli_fetch_assoc($RCQTluong_DS);
 $totalRows_RCQTluong_DS = mysqli_num_rows($RCQTluong_DS);
 ?>
@@ -98,7 +98,7 @@ $totalRows_RCQTluong_DS = mysqli_num_rows($RCQTluong_DS);
     <?php
 	mysqli_select_db($database_Myconnection, $Myconnection);
 		$query_RCQTluong_CN = "SELECT * FROM tlb_quatrinhluong where id = $id";
-		$RCQTluong_CN = mysqli_query($query_RCQTluong_CN, $Myconnection) or die(mysqli_error());
+		$RCQTluong_CN = mysqli_query($query_RCQTluong_CN, $Myconnection); // or die(mysqli_error();
 		$row_RCQTluong_CN = mysqli_fetch_assoc($RCQTluong_CN);
 		$totalRows_RCQTluong_CN = mysqli_num_rows($RCQTluong_CN);	
 	?>
