@@ -84,7 +84,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 	  ?>
         <?php 
 		$stt =1;
-		while ($row = mysql_fetch_row($RCDanhmuc_TM)) {?>
+		while ($row = mysqli_fetch_row($RCDanhmuc_TM)) {?>
           <tr>
             <td class="row1"><?php echo $stt;?></td>
             <td class="row1"><?php echo $row[0]; ?></td>
