@@ -48,8 +48,8 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
                        GetSQLValueString($_POST['ghi_chu'], "text"),
                        GetSQLValueString($_POST['id'], "int"));
 
-  mysqli_select_db($database_Myconnection, $Myconnection);
-  $Result1 = mysqli_query($updateSQL, $Myconnection); // or die(mysqli_error();
+  mysqli_select_db($Myconnection, $database_Myconnection);
+  $Result1 = mysqli_query($Myconnection, $updateSQL); // or die(mysqli_error();
 
   $updateGoTo = "them_moi_qua_trinh_cong_tac.php";
   if (isset($_SERVER['QUERY_STRING'])) {
@@ -59,9 +59,9 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
   sprintf("Location: %s", $updateGoTo);
 }
 
-mysqli_select_db($database_Myconnection, $Myconnection);
+mysqli_select_db($Myconnection, $database_Myconnection);
 $query_RCQuatrinh_DS = "SELECT * FROM tlb_quatrinhcongtac where ma_nhan_vien = '$ma_nv'";
-$RCQuatrinh_DS = mysqli_query($query_RCQuatrinh_DS, $Myconnection); // or die(mysqli_error();
+$RCQuatrinh_DS = mysqli_query($Myconnection, $query_RCQuatrinh_DS); // or die(mysqli_error();
 $row_RCQuatrinh_DS = mysqli_fetch_assoc($RCQuatrinh_DS);
 $totalRows_RCQuatrinh_DS = mysqli_num_rows($RCQuatrinh_DS);
 ?>
@@ -108,9 +108,9 @@ mysqli_free_result($RCQuatrinh_DS);
 ?>
 </p>
 <?php
-mysqli_select_db($database_Myconnection, $Myconnection);
+mysqli_select_db($Myconnection, $database_Myconnection);
 $query_RCQuatrinh_CN = "SELECT * FROM tlb_quatrinhcongtac where ma_nhan_vien = '$ma_nv' and id = $id";
-$RCQuatrinh_CN = mysqli_query($query_RCQuatrinh_CN, $Myconnection); // or die(mysqli_error();
+$RCQuatrinh_CN = mysqli_query($Myconnection, $query_RCQuatrinh_CN); // or die(mysqli_error();
 $row_RCQuatrinh_CN = mysqli_fetch_assoc($RCQuatrinh_CN);
 $totalRows_RCQuatrinh_CN = mysqli_num_rows($RCQuatrinh_CN);
 ?>

@@ -48,8 +48,8 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
                        GetSQLValueString($_POST['ghi_chu'], "text"),
                        GetSQLValueString($_POST['id'], "int"));
 
-  mysqli_select_db($database_Myconnection, $Myconnection);
-  $Result1 = mysqli_query($updateSQL, $Myconnection); // or die(mysqli_error();
+  mysqli_select_db($Myconnection, $database_Myconnection);
+  $Result1 = mysqli_query($Myconnection, $updateSQL); // or die(mysqli_error();
 
   $updateGoTo = "them_moi_hop_dong.php";
   if (isset($_SERVER['QUERY_STRING'])) {
@@ -59,9 +59,9 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
   sprintf("Location: %s", $updateGoTo);
 }
 
-mysqli_select_db($database_Myconnection, $Myconnection);
+mysqli_select_db($Myconnection, $database_Myconnection);
 $query_RCHopdong_DS = "SELECT * FROM tlb_hopdong where ma_nhan_vien = '$ma_nv'";
-$RCHopdong_DS = mysqli_query($query_RCHopdong_DS, $Myconnection); // or die(mysqli_error();
+$RCHopdong_DS = mysqli_query($Myconnection, $query_RCHopdong_DS); // or die(mysqli_error();
 $row_RCHopdong_DS = mysqli_fetch_assoc($RCHopdong_DS);
 $totalRows_RCHopdong_DS = mysqli_num_rows($RCHopdong_DS);
 ?>
@@ -117,9 +117,9 @@ mysqli_free_result($RCHopdong_DS);
 ?>
 <p></p>
 <?php
-mysqli_select_db($database_Myconnection, $Myconnection);
+mysqli_select_db($Myconnection, $database_Myconnection);
 $query_RCHopdong_CN = "SELECT * FROM tlb_hopdong where ma_nhan_vien = '$ma_nv' and id = $id";
-$RCHopdong_CN = mysqli_query($query_RCHopdong_CN, $Myconnection); // or die(mysqli_error();
+$RCHopdong_CN = mysqli_query($Myconnection, $query_RCHopdong_CN); // or die(mysqli_error();
 $row_RCHopdong_CN = mysqli_fetch_assoc($RCHopdong_CN);
 $totalRows_RCHopdong_CN = mysqli_num_rows($RCHopdong_CN);
 ?>

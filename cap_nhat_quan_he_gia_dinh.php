@@ -52,8 +52,8 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
                        GetSQLValueString($_POST['ghi_chu'], "text"),
                        GetSQLValueString($_POST['id'], "int"));
 
-  mysqli_select_db($database_Myconnection, $Myconnection);
-  $Result1 = mysqli_query($updateSQL, $Myconnection); // or die(mysqli_error();
+  mysqli_select_db($Myconnection, $database_Myconnection);
+  $Result1 = mysqli_query($Myconnection, $updateSQL); // or die(mysqli_error();
 
   $updateGoTo = "them_moi_quan_he_gia_dinh.php";
   if (isset($_SERVER['QUERY_STRING'])) {
@@ -92,9 +92,9 @@ body,td,th {
   <tr>
     <td width="475" class="row2" valign="top">
    <?php
-   mysqli_select_db($database_Myconnection, $Myconnection);
+   mysqli_select_db($Myconnection, $database_Myconnection);
    $query_RCQuanhe_DS = "SELECT * FROM tlb_quanhegiadinh where ma_nhan_vien = '$ma_nv'";
-	$RCQuanhe_DS = mysqli_query($query_RCQuanhe_DS, $Myconnection); // or die(mysqli_error();
+	$RCQuanhe_DS = mysqli_query($Myconnection, $query_RCQuanhe_DS); // or die(mysqli_error();
 	$row_RCQuanhe_DS = mysqli_fetch_assoc($RCQuanhe_DS);
 	$totalRows_RCQuanhe_DS = mysqli_num_rows($RCQuanhe_DS); ?>
       <table border="0" width="475" align="center" cellpadding="1" cellspacing="1">
@@ -121,9 +121,9 @@ body,td,th {
 </td>
       <td class="row2" width="290">
       <?php
-	  	mysqli_select_db($database_Myconnection, $Myconnection);
+	  	mysqli_select_db($Myconnection, $database_Myconnection);
 		$query_RCQuanhe_CN = "SELECT * FROM tlb_quanhegiadinh where id= $id";
-		$RCQuanhe_CN = mysqli_query($query_RCQuanhe_CN, $Myconnection); // or die(mysqli_error();
+		$RCQuanhe_CN = mysqli_query($Myconnection, $query_RCQuanhe_CN); // or die(mysqli_error();
 		$row_RCQuanhe_CN = mysqli_fetch_assoc($RCQuanhe_CN);
 		$totalRows_RCQuanhe_CN = mysqli_num_rows($RCQuanhe_CN);
 	  ?>

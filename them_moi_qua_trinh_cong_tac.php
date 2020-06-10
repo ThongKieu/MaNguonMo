@@ -46,8 +46,8 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
                        GetSQLValueString($_POST['cong_viec'], "text"),
                        GetSQLValueString($_POST['ghi_chu'], "text"));
 
-  mysqli_select_db($database_Myconnection, $Myconnection);
-  $Result1 = mysqli_query($insertSQL, $Myconnection); // or die(mysqli_error();
+  mysqli_select_db($Myconnection, $database_Myconnection);
+  $Result1 = mysqli_query($Myconnection, $insertSQL); // or die(mysqli_error();
 
   $insertGoTo = "them_moi_qua_trinh_cong_tac.php";
   if (isset($_SERVER['QUERY_STRING'])) {
@@ -57,9 +57,9 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
   sprintf("Location: %s", $insertGoTo);
 }
 
-mysqli_select_db($database_Myconnection, $Myconnection);
+mysqli_select_db($Myconnection, $database_Myconnection);
 $query_RCQuatrinh_TM = "SELECT * FROM tlb_quatrinhcongtac where ma_nhan_vien = '$ma_nv'";
-$RCQuatrinh_TM = mysqli_query($query_RCQuatrinh_TM, $Myconnection); // or die(mysqli_error();
+$RCQuatrinh_TM = mysqli_query($Myconnection, $query_RCQuatrinh_TM); // or die(mysqli_error();
 $row_RCQuatrinh_TM = mysqli_fetch_assoc($RCQuatrinh_TM);
 $totalRows_RCQuatrinh_TM = mysqli_num_rows($RCQuatrinh_TM);
 ?>

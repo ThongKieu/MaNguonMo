@@ -14,8 +14,8 @@ if ($action=="del")
 	$ma_column = $column . "_id";
 	$deleteSQL = "DELETE FROM $table WHERE $ma_column='$ma_nv'";                     
 	
-	  mysqli_select_db($database_Myconnection, $Myconnection);
-	  $Result1 = mysqli_query($deleteSQL, $Myconnection); // or die(mysqli_error();
+	  mysqli_select_db($Myconnection, $database_Myconnection);
+	  $Result1 = mysqli_query($Myconnection, $deleteSQL); // or die(mysqli_error();
 	
 	  $deleteGoTo = "them_danh_muc.php";
 	  if (isset($_SERVER['QUERY_STRING'])) {
@@ -33,12 +33,12 @@ if (isset($_SERVER['QUERY_STRING'])) {
 if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
   $updateSQL = sprintf("UPDATE $table SET $ten_column=%s WHERE $ma_column=%s", $_POST['2'], $_POST['1']);
 
-  mysqli_select_db($database_Myconnection, $Myconnection);
-  $Result1 = mysqli_query($updateSQL, $Myconnection); // or die(mysqli_error();
+  mysqli_select_db($Myconnection, $database_Myconnection);
+  $Result1 = mysqli_query($Myconnection, $updateSQL); // or die(mysqli_error();
 }
-mysqli_select_db($database_Myconnection, $Myconnection);
+mysqli_select_db($Myconnection, $database_Myconnection);
 $query_RCDanhmuc_DS = "SELECT * FROM $table";
-$RCDanhmuc_DS = mysqli_query($query_RCDanhmuc_DS, $Myconnection); // or die(mysqli_error();
+$RCDanhmuc_DS = mysqli_query($Myconnection, $query_RCDanhmuc_DS); // or die(mysqli_error();
 $row_RCDanhmuc_DS = mysqli_fetch_assoc($RCDanhmuc_DS);
 $totalRows_RCDanhmuc_DS = mysqli_num_rows($RCDanhmuc_DS);
 ?>
@@ -69,9 +69,9 @@ $totalRows_RCDanhmuc_DS = mysqli_num_rows($RCDanhmuc_DS);
     </table></td>
     <td class="row2" width="260" align="center" valign="top">
     <?php 
-	mysqli_select_db($database_Myconnection, $Myconnection);
+	mysqli_select_db($Myconnection, $database_Myconnection);
 		$query_RCDanhmuc_CN = "SELECT * FROM $table where $ma_column = '$ma_nv'";
-		$RCDanhmuc_CN = mysqli_query($query_RCDanhmuc_CN, $Myconnection); // or die(mysqli_error();
+		$RCDanhmuc_CN = mysqli_query($Myconnection, $query_RCDanhmuc_CN); // or die(mysqli_error();
 		$row_RCDanhmuc_CN = mysqli_fetch_assoc($RCDanhmuc_CN);
 		$totalRows_RCDanhmuc_CN = mysqli_num_rows($RCDanhmuc_CN);
 	?>
