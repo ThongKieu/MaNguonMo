@@ -29,7 +29,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
     $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
   }
 
-  $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($theValue) : mysqli_escape_string($theValue);
+  // $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($theValue) : mysqli_escape_string($theValue);
 
   switch ($theType) {
     case "text":
@@ -117,7 +117,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 	  ?>
         <?php 
 		$stt =1;
-		while ($row = mysql_fetch_row($RCDanhmuc_TM)) {?>
+		while ($row = mysqli_fetch_row($RCDanhmuc_TM)) {?>
           <tr>
             <td class="row1"><?php echo $stt;?></td>
             <td class="row1"><?php echo $row[0]; ?></td>
