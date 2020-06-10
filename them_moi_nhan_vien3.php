@@ -69,7 +69,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
                        GetSQLValueString($_FILES["hinh_anh"]["name"], "text"));
 
   mysqli_select_db($database_Myconnection, $Myconnection);
-  $Result1 = mysqli_query($insertSQL, $Myconnection) or die(mysqli_error());
+  $Result1 = mysqli_query($insertSQL, $Myconnection); // or die(mysqli_error();
 
   $insertGoTo = "danh_sach_nhan_vien.php";
   if (isset($_SERVER['QUERY_STRING'])) {

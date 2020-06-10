@@ -46,7 +46,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
                        GetSQLValueString($_POST['noi_cap_bhyt'], "text"));
 
   mysqli_select_db($database_Myconnection, $Myconnection);
-  $Result1 = mysqli_query($insertSQL, $Myconnection) or die(mysqli_error());
+  $Result1 = mysqli_query($insertSQL, $Myconnection); // or die(mysqli_error();
 
   $insertGoTo = "them_moi_bao_hiem.php";
   if (isset($_SERVER['QUERY_STRING'])) {
@@ -57,7 +57,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 }
 mysqli_select_db($database_Myconnection, $Myconnection);
 $query_RCBaohiem_TM = "SELECT * FROM tlb_baohiem where ma_nhan_vien = '$ma_nv'";
-$RCBaohiem_TM = mysqli_query($query_RCBaohiem_TM, $Myconnection) or die(mysqli_error());
+$RCBaohiem_TM = mysqli_query($query_RCBaohiem_TM, $Myconnection); // or die(mysqli_error();
 $row_RCBaohiem_TM = mysqli_fetch_assoc($RCBaohiem_TM);
 $totalRows_RCBaohiem_TM = mysqli_num_rows($RCBaohiem_TM);
 if ($totalRows_RCBaohiem_TM <>0)

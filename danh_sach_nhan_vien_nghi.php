@@ -8,7 +8,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
     $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
   }
 
-  $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($theValue) : mysqli_escape_string($theValue);
+  // $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($theValue) : mysqli_escape_string($theValue);
 
   switch ($theType) {
     case "text":
@@ -34,7 +34,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 
 mysqli_select_db($database_Myconnection, $Myconnection);
 $query_RCdanh_sach = "SELECT * FROM tlb_nhanvien where nghi_viec =1";
-$RCdanh_sach = mysqli_query($query_RCdanh_sach, $Myconnection) or die(mysqli_error());
+$RCdanh_sach = mysqli_query($query_RCdanh_sach, $Myconnection); // or die(mysqli_error();
 $row_RCdanh_sach = mysqli_fetch_assoc($RCdanh_sach);
 $totalRows_RCdanh_sach = mysqli_num_rows($RCdanh_sach);
 ?>
